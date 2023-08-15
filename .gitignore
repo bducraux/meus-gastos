@@ -161,6 +161,7 @@ cython_debug/
 
 /importacoes/extrato/
 /importacoes/conta
+/meusgastos/apps/categorias/fixtures/categorias_pessoais.json
 
 !/meusgastos/templates/admin/lib/
 !/importacoes/extrato/extrato_sample.ofx
