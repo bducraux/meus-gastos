@@ -1,0 +1,240 @@
+{% extends 'adminlte/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+{{ block.super }}
+<!-- Include the Chart.js library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+    .bg-light-red {
+        background-color: #ffeeee; /* Use a cor que desejar para destacar as transações de saída */
+    }
+    .bg-light-green {
+        background-color: #eefeee; /* Use a cor que desejar para destacar as transações de entrada */
+    }
+    thead input {
+        width: 100%;
+        height: 22px;
+    }
+    thead input[type="text"] {
+    font-size: small;
+}
+
+
+</style>
+{% endblock %}
+
+{% block title %}Meus Gastos{% endblock %}
+
+{% block content_header %}
+{% endblock %}
+
+{% block content %}
+    <!-- Main content -->
+    <div class="content">
+        <div class="container-fluid p-3">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="info-box shadow">
+                        <span class="info-box-icon bg-gradient-gray-dark"><i class="far fa-calendar-alt"></i></span>
+                        <div class="info-box-content pl-4">
+                            <h1>
+                            <span class="info-box-text font-weight-bolder" id="current_month_year"></span>
+                            </h1>
+                            <div class="btn-group" role="group" aria-label="Date Navigation">
+                                <a class="btn btn-outline-dark m-1" id="prevMonthBtn">
+                                    <i class="far fa-arrow-alt-circle-left"></i>
+                                </a>
+                                <a class="btn btn-outline-dark m-1" id="currentMonthBtn">Mês atual</a>
+                                <a class="btn btn-outline-dark m-1" id="nextMonthBtn"><i class="far fa-arrow-alt-circle-right"></i></a>
+                            </div>
+                        </div><!-- /.info-box-content -->
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <div class="small-box bg-success shadow">
+                        <div class="inner pt-4" style="height: 100px;">
+                            <h4>
+                                <span class="mr-1 font-weight-bolder" style="font-size: 30px">R$</span>
+                                <span id="rendaTotal">0</span>
+                            </h4>
+                        </div>
+                        <div class="icon left">
+                            <i class="ion ion-arrow-up-c"></i>
+                        </div>
+                        <span class="small-box-footer font-weight-bolder">Renda</span>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <div class="small-box bg-danger shadow">
+                        <div class="inner pt-4" style="height: 100px;">
+                            <h4>
+                                <span class="mr-1 font-weight-bolder" style="font-size: 30px">R$</span>
+                                <span id="despesaTotal">0</span>
+                            </h4>
+                        </div>
+                        <div class="icon left">
+                            <i class="ion ion-arrow-down-c"></i>
+                        </div>
+                        <span class="small-box-footer font-weight-bolder">Despesas</span>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <div class="small-box bg-info shadow">
+                        <div class="inner pt-4" style="height: 100px;">
+                            <h4>
+                                <span class="mr-1 font-weight-bolder" style="font-size: 30px">R$</span>
+                                <span id="saldoTotal">0</span>
+                            </h4>
+                        </div>
+                        <div class="icon left">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <span class="small-box-footer font-weight-bolder">Saldo</span>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <div class="small-box bg-gradient-indigo shadow">
+                        <div class="inner pt-4" style="height: 100px;">
+                            <h4>
+                                <span class="mr-1 font-weight-bolder" style="font-size: 30px">R$</span>
+                                <span id="reservas">0</span>
+                            </h4>
+                        </div>
+                        <div class="icon left">
+                            <i class="fa fa-piggy-bank"></i>
+                        </div>
+                        <span class="small-box-footer font-weight-bolder">Reservas</span>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                </div>
+            </div>
+
+            <div class="row">
+                <section class="col-lg-4 connectedSortable">
+                    <div class="card">
+                      <div class="card-header">
+                        <h3 class="card-title">
+                          <i class="fas fa-chart-pie mr-1"></i>
+                          Despesas por Categorias
+                        </h3>
+                        <div class="card-tools">
+                          <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                              </button>
+                          </div>
+                        </div>
+                      </div><!-- /.card-header -->
+                      <div class="card-body">
+                          <div class="chart">
+                              <div id="backButtonContainer" style="position: absolute; top: 10px; right: 10px; z-index: 1000; display: none;">
+                                  <button id="backButton" class="btn btn-link">
+                                      <i class="fas fa-arrow-alt-circle-left"></i>
+                                  </button>
+                              </div>
+                              <div id="categoriesChartContainer">
+                                  <canvas id="expensesByCategoriesChart" style="min-height: 305px; height: 305px; max-height: 305px; max-width: 100%;" class="chartjs-render-monitor"></canvas>
+                                  <div id="noDataMessage" class="alert alert-info" style="display: none; position: absolute; bottom: 50%; right: 50%; transform: translate(50%, 50%);">
+                                      Não existem dados disponíveis para este mês.
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                    </div><!-- /.card -->
+                </section>
+                <section class="col-lg-4 connectedSortable">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-chart-line mr-1"></i>
+                                Evolução Renda/Despesa
+                            </h3>
+                            <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                              </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart">
+                                <canvas id="incomeGrowthChart" style="min-height: 305px; height: 305px; max-height: 305px; max-width: 100%;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="col-lg-4 connectedSortable">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-chart-bar mr-1"></i>
+                                Projeção de Despesas
+                            </h3>
+                            <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                              </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart">
+                                <canvas id="incomeVsOutcomeChart" style="min-height: 305px; height: 305px; max-height: 305px; max-width: 100%;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="row">
+                <section class="col-lg-8 connectedSortable">
+                    <div class="card">
+                      <div class="card-header">
+                        <h3 class="card-title">
+                          <i class="fas fa-chart-pie mr-1"></i>
+                          Extrato de transações
+                        </h3>
+                        <div class="card-tools">
+                          <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="maximize">
+                                    <i class="fa fa-expand-arrows-alt"></i>
+                                </button>
+                              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                              </button>
+                          </div>
+                        </div>
+                      </div><!-- /.card-header -->
+                    <div class="card-body">
+                          <!-- div that contain the datatable to display the transactions -->
+                            <div class="table-responsive">
+                                <table id="transactionsTable" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Data</th>
+                                            <th>Tipo</th>
+                                            <th>Descrição</th>
+                                            <th>Categoria</th>
+                                            <th>Subcategoria</th>
+                                            <th>Valor</th>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                      </div>
+                    </div><!-- /.card -->
+                </section>
+            </div>
+        </div>
+    </div>
+    <!-- /.content -->
+{% endblock %}
+
+{% block extra_js %}
+<script src="{%static 'js/dashboard.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,1003 @@
+[
+{
+    "model": "categorias.categoria",
+    "pk": 1,
+    "fields": {
+        "parent": null,
+        "parent_path": "Salário",
+        "cod": "SALARIO",
+        "tipo": "E",
+        "descricao": "Salário",
+        "keywords": "salario,salário",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 4,
+    "fields": {
+        "parent": null,
+        "parent_path": "Taxas",
+        "cod": "TAXAS",
+        "tipo": "T",
+        "descricao": "Taxas",
+        "keywords": "Registro Civil,Taxa Correios,Iof",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 5,
+    "fields": {
+        "parent": null,
+        "parent_path": "Moradia",
+        "cod": "MORADIA",
+        "tipo": "S",
+        "descricao": "Moradia",
+        "keywords": null,
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 6,
+    "fields": {
+        "parent": 5,
+        "parent_path": "Moradia > Aluguel",
+        "cod": "ALUGUEL",
+        "tipo": "S",
+        "descricao": "Aluguel",
+        "keywords": "aluguel",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 7,
+    "fields": {
+        "parent": 5,
+        "parent_path": "Moradia > Condomínio",
+        "cod": "CONDOMINIO",
+        "tipo": "S",
+        "descricao": "Condomínio",
+        "keywords": "condominio",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 8,
+    "fields": {
+        "parent": null,
+        "parent_path": "Cashback",
+        "cod": "CASHBACK",
+        "tipo": "E",
+        "descricao": "Cashback",
+        "keywords": null,
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 9,
+    "fields": {
+        "parent": 5,
+        "parent_path": "Moradia > Limpeza",
+        "cod": "LIMPEZA",
+        "tipo": "S",
+        "descricao": "Limpeza",
+        "keywords": "limpeza,limpadora,limpador,limpadores,limpadoras",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 10,
+    "fields": {
+        "parent": 5,
+        "parent_path": "Moradia > Gás",
+        "cod": "GAS",
+        "tipo": "S",
+        "descricao": "Gás",
+        "keywords": "comgas,ultragaz,liquigas,liquigás,liquigaz,copagaz,ceg",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 11,
+    "fields": {
+        "parent": 5,
+        "parent_path": "Moradia > Água",
+        "cod": "AGUA",
+        "tipo": "S",
+        "descricao": "Água",
+        "keywords": "agua,água,sabesp,semae,cedae",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 12,
+    "fields": {
+        "parent": 5,
+        "parent_path": "Moradia > Luz",
+        "cod": "LUZ",
+        "tipo": "S",
+        "descricao": "Luz",
+        "keywords": "cpfl,light,energisa",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 13,
+    "fields": {
+        "parent": 5,
+        "parent_path": "Moradia > Internet",
+        "cod": "INTERNET",
+        "tipo": "S",
+        "descricao": "Internet",
+        "keywords": "vivo fixo,livetim,live tim,net virtua,netvirtua",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 14,
+    "fields": {
+        "parent": 5,
+        "parent_path": "Moradia > TV",
+        "cod": "TV",
+        "tipo": "S",
+        "descricao": "TV",
+        "keywords": "sky,claro tv,clarotv,claro tv,clarotv,oi tv,oitv,net tv,nettv",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 15,
+    "fields": {
+        "parent": null,
+        "parent_path": "Alimentação",
+        "cod": "ALIMENTACAO",
+        "tipo": "S",
+        "descricao": "Alimentação",
+        "keywords": null,
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 16,
+    "fields": {
+        "parent": null,
+        "parent_path": "Supermercado",
+        "cod": "SUPERMERCADO",
+        "tipo": "S",
+        "descricao": "Supermercado",
+        "keywords": "mercado,supermercado,supermerca,assai atacadista,jau serve,hortifruti,arroba,emporio savana,sams,carrefour,enxuto",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 17,
+    "fields": {
+        "parent": 15,
+        "parent_path": "Alimentação > Restaurante",
+        "cod": "RESTAURANTE",
+        "tipo": "S",
+        "descricao": "Restaurante",
+        "keywords": "restaurante,saborde,churrascaria,lumberjack,multi sabor,linguica no pao,natural da terra,pizzaiollos,appety,mcdonalds,habibs,subway,burger king,burgerking",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 18,
+    "fields": {
+        "parent": null,
+        "parent_path": "Lazer",
+        "cod": "LAZER",
+        "tipo": "S",
+        "descricao": "Lazer",
+        "keywords": "sesc,cinema,teatro",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 19,
+    "fields": {
+        "parent": null,
+        "parent_path": "Viagem",
+        "cod": "VIAGEM",
+        "tipo": "S",
+        "descricao": "Viagem",
+        "keywords": "pousada,hotel,hostel,airbnb,booking,tripadvisor,expedia",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 20,
+    "fields": {
+        "parent": null,
+        "parent_path": "Filhos",
+        "cod": "FILHOS",
+        "tipo": "S",
+        "descricao": "Filhos",
+        "keywords": null,
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 21,
+    "fields": {
+        "parent": 20,
+        "parent_path": "Filhos > Escola",
+        "cod": "ESCOLA",
+        "tipo": "S",
+        "descricao": "Escola",
+        "keywords": "escola,colegio,colégio",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 22,
+    "fields": {
+        "parent": 20,
+        "parent_path": "Filhos > Inglês",
+        "cod": "INGLES",
+        "tipo": "S",
+        "descricao": "Inglês",
+        "keywords": "red balloon",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 23,
+    "fields": {
+        "parent": null,
+        "parent_path": "Outras Receitas",
+        "cod": "OUTRAS_RECEITAS",
+        "tipo": "E",
+        "descricao": "Outras Receitas",
+        "keywords": null,
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 24,
+    "fields": {
+        "parent": null,
+        "parent_path": "Outras Despesas",
+        "cod": "OUTRAS_DESPESAS",
+        "tipo": "S",
+        "descricao": "Outras Despesas",
+        "keywords": "",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 25,
+    "fields": {
+        "parent": 15,
+        "parent_path": "Alimentação > Padaria",
+        "cod": "PADARIA",
+        "tipo": "S",
+        "descricao": "Padaria",
+        "keywords": "padaria,panificadora,qpaozinho",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 26,
+    "fields": {
+        "parent": 15,
+        "parent_path": "Alimentação > Doceria",
+        "cod": "DOCERIA",
+        "tipo": "S",
+        "descricao": "Doceria",
+        "keywords": "doce,chocolates",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 27,
+    "fields": {
+        "parent": null,
+        "parent_path": "Cartão de Crédito",
+        "cod": "CARTAO",
+        "tipo": "S",
+        "descricao": "Cartão de Crédito",
+        "keywords": "c credito,cartao de credito",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 28,
+    "fields": {
+        "parent": 15,
+        "parent_path": "Alimentação > Sorveteria",
+        "cod": "SORVETERIA",
+        "tipo": "S",
+        "descricao": "Sorveteria",
+        "keywords": "sorvete,sorvetes,sorveteria,sol e neve,fruta gurt",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 29,
+    "fields": {
+        "parent": null,
+        "parent_path": "Saúde",
+        "cod": "SAUDE",
+        "tipo": "S",
+        "descricao": "Saúde",
+        "keywords": "",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 30,
+    "fields": {
+        "parent": 15,
+        "parent_path": "Alimentação > Lanchonete",
+        "cod": "LANCHONETE",
+        "tipo": "S",
+        "descricao": "Lanchonete",
+        "keywords": "cafe,nachapa,lanche,lanchonete,rei das coxinhas,hamburguer,chen liru",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 31,
+    "fields": {
+        "parent": null,
+        "parent_path": "Beleza",
+        "cod": "BELEZA",
+        "tipo": "S",
+        "descricao": "Beleza",
+        "keywords": "cabelereir,depilaria,depilação,depilacao,depilador",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 32,
+    "fields": {
+        "parent": null,
+        "parent_path": "Vestuário",
+        "cod": "VESTUARIO",
+        "tipo": "S",
+        "descricao": "Vestuário",
+        "keywords": null,
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 33,
+    "fields": {
+        "parent": null,
+        "parent_path": "Animal",
+        "cod": "ANIMAL",
+        "tipo": "S",
+        "descricao": "Animal",
+        "keywords": "agromane,cobasi,petsupermarket,med vet,pet vida,petshop",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 34,
+    "fields": {
+        "parent": 33,
+        "parent_path": "Animal > Veterinário",
+        "cod": "VETERINARIO",
+        "tipo": "S",
+        "descricao": "Veterinário",
+        "keywords": "veterinari,veterinári",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 35,
+    "fields": {
+        "parent": 18,
+        "parent_path": "Lazer > Eventos",
+        "cod": "EVENTOS",
+        "tipo": "S",
+        "descricao": "Eventos",
+        "keywords": "",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 36,
+    "fields": {
+        "parent": 15,
+        "parent_path": "Alimentação > Refeição",
+        "cod": "REFEICAO",
+        "tipo": "S",
+        "descricao": "Refeição",
+        "keywords": "almoco,almoço",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 37,
+    "fields": {
+        "parent": null,
+        "parent_path": "Investimento",
+        "cod": "INVESTIMENTO",
+        "tipo": "T",
+        "descricao": "Investimento",
+        "keywords": "",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 38,
+    "fields": {
+        "parent": 37,
+        "parent_path": "Investimento > Aporte investimento automático",
+        "cod": "INV_AUTOMATICO_APORTE",
+        "tipo": "S",
+        "descricao": "Aporte investimento automático",
+        "keywords": "apl.invest fac,invest facil,inv fac",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 39,
+    "fields": {
+        "parent": 37,
+        "parent_path": "Investimento > Resgate investimento automático",
+        "cod": "INV_AUTOMATICO_RESGATE",
+        "tipo": "E",
+        "descricao": "Resgate investimento automático",
+        "keywords": "resg automatico investim,resgate inv fac",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 43,
+    "fields": {
+        "parent": 45,
+        "parent_path": "Carro > Combustível",
+        "cod": "COMBUSTIVEL",
+        "tipo": "S",
+        "descricao": "Combustível",
+        "keywords": "posto vale do pomba,autoposto,auto posto,vibra energia,posto agronomia",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 44,
+    "fields": {
+        "parent": null,
+        "parent_path": "Aprimoramento",
+        "cod": "APRIMORAMENTO",
+        "tipo": "S",
+        "descricao": "Aprimoramento",
+        "keywords": "",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 45,
+    "fields": {
+        "parent": null,
+        "parent_path": "Carro",
+        "cod": "CARRO",
+        "tipo": "S",
+        "descricao": "Carro",
+        "keywords": "",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 46,
+    "fields": {
+        "parent": 45,
+        "parent_path": "Carro > Limpeza",
+        "cod": "LIMPEZA",
+        "tipo": "S",
+        "descricao": "Limpeza",
+        "keywords": "fastwash,fast wash",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 47,
+    "fields": {
+        "parent": 45,
+        "parent_path": "Carro > Manutenção",
+        "cod": "MANUTENCAO",
+        "tipo": "S",
+        "descricao": "Manutenção",
+        "keywords": "",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 48,
+    "fields": {
+        "parent": 5,
+        "parent_path": "Moradia > Manutenção",
+        "cod": "MANUTENCAO",
+        "tipo": "S",
+        "descricao": "Manutenção",
+        "keywords": "",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 49,
+    "fields": {
+        "parent": 45,
+        "parent_path": "Carro > Seguro",
+        "cod": "SEGURO",
+        "tipo": "S",
+        "descricao": "Seguro",
+        "keywords": "",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 50,
+    "fields": {
+        "parent": 45,
+        "parent_path": "Carro > IPVA",
+        "cod": "IPVA",
+        "tipo": "S",
+        "descricao": "IPVA",
+        "keywords": "ipva",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 51,
+    "fields": {
+        "parent": 29,
+        "parent_path": "Saúde > Drogaria",
+        "cod": "DROGARIA",
+        "tipo": "S",
+        "descricao": "Drogaria",
+        "keywords": "farmacia,drogaria,farmaceutica,drogal,biotipo,drogasil,drogaraia,droga raia,pacheco,venancio",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 52,
+    "fields": {
+        "parent": 29,
+        "parent_path": "Saúde > Exames",
+        "cod": "EXAMES",
+        "tipo": "S",
+        "descricao": "Exames",
+        "keywords": "",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 53,
+    "fields": {
+        "parent": 29,
+        "parent_path": "Saúde > Dentista",
+        "cod": "DENTISTA",
+        "tipo": "S",
+        "descricao": "Dentista",
+        "keywords": "",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 54,
+    "fields": {
+        "parent": 44,
+        "parent_path": "Aprimoramento > Inglês",
+        "cod": "INGLES",
+        "tipo": "S",
+        "descricao": "Inglês",
+        "keywords": "ccaa,fisk,wizard,wiseup",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 55,
+    "fields": {
+        "parent": 45,
+        "parent_path": "Carro > Caixinha",
+        "cod": "CAIXINHA",
+        "tipo": "S",
+        "descricao": "Caixinha",
+        "keywords": null,
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 56,
+    "fields": {
+        "parent": null,
+        "parent_path": "Assinaturas",
+        "cod": "ASSINATURAS",
+        "tipo": "S",
+        "descricao": "Assinaturas",
+        "keywords": null,
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 57,
+    "fields": {
+        "parent": 56,
+        "parent_path": "Assinaturas > Spotify",
+        "cod": "SPOTIFY",
+        "tipo": "S",
+        "descricao": "Spotify",
+        "keywords": "spotify",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 58,
+    "fields": {
+        "parent": 56,
+        "parent_path": "Assinaturas > Netflix",
+        "cod": "NETFLIX",
+        "tipo": "S",
+        "descricao": "Netflix",
+        "keywords": "netflix",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 59,
+    "fields": {
+        "parent": 56,
+        "parent_path": "Assinaturas > Leiturinha",
+        "cod": "LEITURINHA",
+        "tipo": "S",
+        "descricao": "Leiturinha",
+        "keywords": "leiturinha",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 60,
+    "fields": {
+        "parent": 56,
+        "parent_path": "Assinaturas > Amazon Prime",
+        "cod": "AMAZONPRIME",
+        "tipo": "S",
+        "descricao": "Amazon Prime",
+        "keywords": "amazonprime,amazon prime,amazonprimebr,discovery+,discoveryplus",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 61,
+    "fields": {
+        "parent": 20,
+        "parent_path": "Filhos > Transporte Escolar",
+        "cod": "TRANSPORTE_ESCOLAR",
+        "tipo": "S",
+        "descricao": "Transporte Escolar",
+        "keywords": "van escolar,transporte escolar",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 62,
+    "fields": {
+        "parent": 20,
+        "parent_path": "Filhos > Atividades",
+        "cod": "ATIVIDADES",
+        "tipo": "S",
+        "descricao": "Atividades",
+        "keywords": "judo,judô,natacao,natação",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 63,
+    "fields": {
+        "parent": 44,
+        "parent_path": "Aprimoramento > Faculdade",
+        "cod": "FACULDADE",
+        "tipo": "S",
+        "descricao": "Faculdade",
+        "keywords": "cobranca facu,universidade,faculdade",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 64,
+    "fields": {
+        "parent": 56,
+        "parent_path": "Assinaturas > IPTV",
+        "cod": "IPTV",
+        "tipo": "S",
+        "descricao": "IPTV",
+        "keywords": null,
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 65,
+    "fields": {
+        "parent": 20,
+        "parent_path": "Filhos > Mesada",
+        "cod": "MESADA",
+        "tipo": "S",
+        "descricao": "Mesada",
+        "keywords": "mesada",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 66,
+    "fields": {
+        "parent": 20,
+        "parent_path": "Filhos > Presente",
+        "cod": "PRESENTE",
+        "tipo": "S",
+        "descricao": "Presente",
+        "keywords": null,
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 67,
+    "fields": {
+        "parent": 15,
+        "parent_path": "Alimentação > Lojas Americanas",
+        "cod": "LOJAS_AMERICANAS",
+        "tipo": "S",
+        "descricao": "Lojas Americanas",
+        "keywords": "lojas americanas,americanas s.a.,americanas.com",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 68,
+    "fields": {
+        "parent": 15,
+        "parent_path": "Alimentação > IFood",
+        "cod": "IFOOD",
+        "tipo": "S",
+        "descricao": "IFood",
+        "keywords": "ifood",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 69,
+    "fields": {
+        "parent": 32,
+        "parent_path": "Vestuário > Acessórios",
+        "cod": "ACESSORIOS",
+        "tipo": "S",
+        "descricao": "Acessórios",
+        "keywords": "",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 70,
+    "fields": {
+        "parent": 32,
+        "parent_path": "Vestuário > Roupas",
+        "cod": "ROUPAS",
+        "tipo": "S",
+        "descricao": "Roupas",
+        "keywords": "tanger,renner,pernambucanas,torra torra,super moda,tanga brazil,marisa,cea,riachuelo",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 71,
+    "fields": {
+        "parent": 5,
+        "parent_path": "Moradia > Telefone",
+        "cod": "TELEFONE",
+        "tipo": "S",
+        "descricao": "Telefone",
+        "keywords": "telefonica brasil,tim s.a",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 73,
+    "fields": {
+        "parent": 18,
+        "parent_path": "Lazer > Clube",
+        "cod": "CLUBE",
+        "tipo": "S",
+        "descricao": "Clube",
+        "keywords": "cobranca clube",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 74,
+    "fields": {
+        "parent": 18,
+        "parent_path": "Lazer > Parque",
+        "cod": "PARQUE",
+        "tipo": "S",
+        "descricao": "Parque",
+        "keywords": "thermas,tivolli,wet n wild,hopi hari,playcenter,play city",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 75,
+    "fields": {
+        "parent": null,
+        "parent_path": "Transporte",
+        "cod": "TRANSPORTE",
+        "tipo": "S",
+        "descricao": "Transporte",
+        "keywords": "metro rj,riopar",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 76,
+    "fields": {
+        "parent": 75,
+        "parent_path": "Transporte > Transporte por aplicativo",
+        "cod": "TRANSPORTE_APLICATIVO",
+        "tipo": "S",
+        "descricao": "Transporte por aplicativo",
+        "keywords": "uber,99pop,99 taxi",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 77,
+    "fields": {
+        "parent": 44,
+        "parent_path": "Aprimoramento > Livros",
+        "cod": "LIVROS",
+        "tipo": "S",
+        "descricao": "Livros",
+        "keywords": "nobel,saraiva,cultura,estante virtual",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 78,
+    "fields": {
+        "parent": null,
+        "parent_path": "Compras",
+        "cod": "COMPRAS",
+        "tipo": "S",
+        "descricao": "Compras",
+        "keywords": "compras,daiso,shopee",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 79,
+    "fields": {
+        "parent": 15,
+        "parent_path": "Alimentação > Bar",
+        "cod": "BAR",
+        "tipo": "S",
+        "descricao": "Bar",
+        "keywords": "barleys, bar ,bar do alemao",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 80,
+    "fields": {
+        "parent": null,
+        "parent_path": "Calçados",
+        "cod": "CALCADOS",
+        "tipo": "S",
+        "descricao": "Calçados",
+        "keywords": "bibi calcados,bibi calçados,havaianas",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 81,
+    "fields": {
+        "parent": 4,
+        "parent_path": "Taxas > Extorno",
+        "cod": "EXTORNO",
+        "tipo": "E",
+        "descricao": "Extorno",
+        "keywords": "",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 82,
+    "fields": {
+        "parent": 45,
+        "parent_path": "Carro > Estacionamento",
+        "cod": "ESTACIONAMENTO",
+        "tipo": "S",
+        "descricao": "Estacionamento",
+        "keywords": "parking,estacionamento",
+        "is_active": true
+    }
+},
+{
+    "model": "categorias.categoria",
+    "pk": 83,
+    "fields": {
+        "parent": null,
+        "parent_path": "Reserva Pessoal",
+        "cod": "RESERVA_PESSOAL",
+        "tipo": "S",
+        "descricao": "Reserva Pessoal",
+        "keywords": "",
+        "is_active": true
+    }
+}
+]

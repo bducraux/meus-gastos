@@ -1,0 +1,46 @@
+{% extends 'adminlte/base.html' %}
+
+{% block title %}Meus Gastos{% endblock %}
+
+{% block content_header %}
+<h1>Meus Gastos</h1>
+{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="datePeriod">Date Period:</label>
+            <select class="form-control" id="datePeriod">
+                <option value="1">This Month</option>
+                <option value="2">Last Month</option>
+                <option value="3">This Year</option>
+                <!-- Add more predefined date period options here -->
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Expenses by Categories</h3>
+            </div>
+            <div class="card-body">
+                <div id="expensesByCategoriesChart"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Income Growth by Month</h3>
+            </div>
+            <div class="card-body">
+                <div id="incomeGrowthChart"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
