@@ -1,0 +1,9 @@
+{% extends "admin/change_form.html" %}
+{% load static %}
+
+{% block submit_buttons_bottom %}
+    {{ block.super }}
+    <div>
+        <button type="submit" name="_process_txt_file" value="1">Processar arquivo</button>
+    </div>
+{% endblock %}

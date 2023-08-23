@@ -1,0 +1,67 @@
+{% load adminlte_helpers i18n %}
+{% load static %}
+<nav class="main-header navbar navbar-expand-md navbar-dark">
+    <div class="container-fluid">
+      <a href="/" class="navbar-brand">
+        <img src="{%static '/img/logo.png' %}" alt="MeusGastos" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-bolder">MeusGastos</span>
+      </a>
+
+      <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+    <!-- Header Navbar: style can be found in header.less -->
+    {% block nav_bar %}
+    <!-- Left navbar links -->
+        <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+
+    {% block nav_custom_menu %}
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+        <ul class="nav navbar-nav">
+            {% block header_dropdowns %}
+            {% block user_info %}
+
+            <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="far fa-user fa-2x"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        {% if request.user.is_authenticated %}
+                        <a href="#" class="dropdown-item">
+                            <div class="media">
+                                <div class="media-body">
+                                    <h3 class="dropdown-item-title">
+                                            {% firstof request.user.get_short_name request.user.get_username %}
+                                    </h3>
+                                    <p class="text-sm"><small>{% trans 'Member since' %} :</small></p>
+                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>  <small>{{ request.user.date_joined }}</small></p>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-footer">
+                            <a href="/admin" class="btn btn-primary btn-sm">Admin site</a>
+                            <a  href="/admin/logout" class="btn btn-danger btn-sm">{%trans 'Logout'%}</a>
+                        </div>
+                        {% else %}
+
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-footer">
+                                <a href="/admin/login" class="btn btn-primary btn-xs">Faça o seu Login</a>
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+                </li>
+
+            {% endblock user_info %}
+            {% endblock header_dropdowns %}
+        </ul>
+    </ul>
+        {% endblock nav_custom_menu %}
+
+{% endblock %}
+</nav>

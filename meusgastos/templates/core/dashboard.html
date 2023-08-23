@@ -26,7 +26,7 @@
 </style>
 {% endblock %}
 
-{% block title %}Meus Gastos{% endblock %}
+{% block title %}MeusGastos{% endblock %}
 
 {% block content_header %}
 {% endblock %}
@@ -58,7 +58,7 @@
                         <div class="inner pt-4" style="height: 100px;">
                             <h4>
                                 <span class="mr-1 font-weight-bolder" style="font-size: 30px">R$</span>
-                                <span id="rendaTotal">0</span>
+                                <span id="receitas">0</span>
                             </h4>
                         </div>
                         <div class="icon left">
@@ -72,7 +72,7 @@
                         <div class="inner pt-4" style="height: 100px;">
                             <h4>
                                 <span class="mr-1 font-weight-bolder" style="font-size: 30px">R$</span>
-                                <span id="despesaTotal">0</span>
+                                <span id="despesas">0</span>
                             </h4>
                         </div>
                         <div class="icon left">
@@ -111,6 +111,13 @@
                 </div>
 
                 <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header m-0 p-0">
+                            <div class="chart">
+                                <canvas id="mediaGastosCategoria" style="height: 130px; width: 130px;"></canvas>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -138,7 +145,7 @@
                                   </button>
                               </div>
                               <div id="categoriesChartContainer">
-                                  <canvas id="expensesByCategoriesChart" style="min-height: 305px; height: 305px; max-height: 305px; max-width: 100%;" class="chartjs-render-monitor"></canvas>
+                                  <canvas id="despesasPorCategorias" style="min-height: 305px; height: 305px; max-height: 305px; max-width: 100%;" class="chartjs-render-monitor"></canvas>
                                   <div id="noDataMessage" class="alert alert-info" style="display: none; position: absolute; bottom: 50%; right: 50%; transform: translate(50%, 50%);">
                                       Não existem dados disponíveis para este mês.
                                   </div>
@@ -162,7 +169,7 @@
                         </div>
                         <div class="card-body">
                             <div class="chart">
-                                <canvas id="incomeGrowthChart" style="min-height: 305px; height: 305px; max-height: 305px; max-width: 100%;"></canvas>
+                                <canvas id="crescimentoRendaDespesas" style="min-height: 305px; height: 305px; max-height: 305px; max-width: 100%;"></canvas>
                             </div>
                         </div>
                     </div>
@@ -182,7 +189,7 @@
                         </div>
                         <div class="card-body">
                             <div class="chart">
-                                <canvas id="incomeVsOutcomeChart" style="min-height: 305px; height: 305px; max-height: 305px; max-width: 100%;"></canvas>
+                                <canvas id="projecaoGastos" style="min-height: 305px; height: 305px; max-height: 305px; max-width: 100%;"></canvas>
                             </div>
                         </div>
                     </div>
@@ -210,7 +217,7 @@
                     <div class="card-body">
                           <!-- div that contain the datatable to display the transactions -->
                             <div class="table-responsive">
-                                <table id="transactionsTable" class="table table-bordered table-hover">
+                                <table id="transacoesDataTable" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
                                             <th>Data</th>
