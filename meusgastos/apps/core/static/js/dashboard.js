@@ -1,13 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     // Definir variáveis para os gráficos
-    let expensesByCategoriesChart;
-    let incomeGrowthChart;
-    let incomeVsOutcomeChart;
-    let transactionsTable;
-    let receivedData;
-    let categoriesData
-    let subcategoriesData
-
+    let despesasPorCategorias, crescimentoReceitasDespesas, projecaoGastos, transacoesDataTable, receivedData,
+        categoriesData, subcategoriesData, mediaGastosCategoria;
     // Definir cores para os gráficos
     const paletaCores = [
         '#1F77B4', '#FF7F0E', '#2CA02C', '#D62728', '#9467BD',
@@ -19,13 +13,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Cores personalizadas para as categorias
     const labelColors = {
-    'Não categorizado': '#999999', // Cinza
+        'Não categorizado': '#999999', // Cinza
     };
 
     // Definir os nomes dos meses
     const months = [
-    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+        'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+        'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
     ];
 
     // Definir as variáveis para armazenar o mês e ano atual
@@ -77,29 +71,26 @@ document.addEventListener("DOMContentLoaded", function() {
         const titleElement = document.getElementById("current_month_year");
         titleElement.innerText = `${months[currentMonth - 1]} ${currentYear}`;
 
-        const rendaTotalElement = document.getElementById("rendaTotal");
-        rendaTotalElement.innerText = receivedData.rendaTotal;
+        const receitasElement = document.getElementById("receitas");
+        receitasElement.innerText = receivedData.receitas;
 
-        const despesaTotalElement = document.getElementById("despesaTotal");
-        despesaTotalElement.innerText = receivedData.despesaTotal;
+        const despesasElement = document.getElementById("despesas");
+        despesasElement.innerText = receivedData.despesas;
 
         const saldoTotalElement = document.getElementById("saldoTotal");
-        saldoTotalElement.innerText = receivedData.saltoTotal;
+        saldoTotalElement.innerText = receivedData.saldoTotal;
 
         const reservasElement = document.getElementById("reservas");
         reservasElement.innerText = receivedData.reservas;
 
-        categoriesData = receivedData.gastosPorCategorias;
-        subcategoriesData = receivedData.gastosPorSubcategorias;
+        categoriesData = receivedData.despesasPorCategorias;
+        subcategoriesData = receivedData.despesasPorSubcategorias;
     }
 
     // Função para atualizar a página com os dados do mês atual
     function fetchDataAndUpdatePage() {
         fetchData(currentMonth, currentYear, (receivedData) => {
             updatePageData(receivedData);
-            console.log("categoriesData", categoriesData);
-            console.log("subcategoriesData", subcategoriesData);
-
             createCharts(receivedData, categoriesData, subcategoriesData);
         });
     }
@@ -119,15 +110,16 @@ document.addEventListener("DOMContentLoaded", function() {
     // Função para destruir o gráfico existente, se houver
     function destroyChart(chart) {
         if (chart) {
-        chart.destroy();
+            chart.destroy();
         }
     }
 
     function createCharts(receivedData, categoriesData, subcategoriesData) {
         createExpensesByCategoriesChart(categoriesData, subcategoriesData);
         createIncomeGrowthChart(receivedData);
-        createIncomeVsOutcomeChart(receivedData);
+        createProjecaoGastosChart(receivedData);
         createTransactionsTable(receivedData);
+        createMediaGastosCategoriasChart(receivedData)
     }
 
     // Função para lidar com o clique em categorias
@@ -137,8 +129,8 @@ document.addEventListener("DOMContentLoaded", function() {
             const subcategoriesData = {};
 
 
-            if (receivedData.gastosPorSubcategorias[clickedLabel]) {
-            const subcategoriesData = receivedData.gastosPorSubcategorias[clickedLabel];
+            if (receivedData.despesasPorSubcategorias[clickedLabel]) {
+                const subcategoriesData = receivedData.despesasPorSubcategorias[clickedLabel];
                 updateSubcategoriesChart(categoriesData, subcategoriesData);
             }
         }
@@ -168,7 +160,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     return color;
             }
         });
-        donutChart = new Chart(document.getElementById('expensesByCategoriesChart'), {
+        donutChart = new Chart(document.getElementById('despesasPorCategorias'), {
             type: 'doughnut',
             data: {
                 labels: Object.keys(chartData),
@@ -195,23 +187,23 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function createExpensesByCategoriesChart(categoriesData, subcategoriesData) {
         // Destruir o gráfico existente, se houver
-        destroyChart(expensesByCategoriesChart);
+        destroyChart(despesasPorCategorias);
 
-        expensesByCategoriesChart = createDonutChart(categoriesData)
+        despesasPorCategorias = createDonutChart(categoriesData)
 
         // Verificar se não existem dados e exibir a mensagem
-        if (Object.keys(receivedData.gastosPorCategorias).length === 0) {
+        if (Object.keys(receivedData.despesasPorCategorias).length === 0) {
             document.getElementById('noDataMessage').style.display = 'block';
         } else {
             document.getElementById('noDataMessage').style.display = 'none';
         }
 
         // Adicionar evento de clique ao gráfico de categorias
-        expensesByCategoriesChart.canvas.addEventListener("click", function(event) {
-            const activePoints = expensesByCategoriesChart.getElementsAtEvent(event);
+        despesasPorCategorias.canvas.addEventListener("click", function(event) {
+            const activePoints = despesasPorCategorias.getElementsAtEvent(event);
             if (activePoints.length > 0) {
                 const clickedLabel = activePoints[0]._model.label;
-                if (receivedData.gastosPorSubcategorias[clickedLabel]) {
+                if (receivedData.despesasPorSubcategorias[clickedLabel]) {
                     handleCategoryClick(event, activePoints, receivedData);
                 }
             }
@@ -221,7 +213,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Função para atualizar o gráfico para mostrar as subcategorias
     function updateSubcategoriesChart(categoriesData, subcategoriesData) {
         // Destruir o gráfico existente, se houver
-        destroyChart(expensesByCategoriesChart);
+        destroyChart(despesasPorCategorias);
 
         // Mostrar o botão de volta quando as subcategorias forem exibidas
         document.getElementById('backButtonContainer').style.display = 'block';
@@ -232,11 +224,11 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById('backButtonContainer').style.display = 'none'; // Esconder o botão novamente
         });
 
-        expensesByCategoriesChart = createDonutChart(subcategoriesData);
+        despesasPorCategorias = createDonutChart(subcategoriesData);
 
         // Adicionar evento de clique ao gráfico de subcategorias
-        expensesByCategoriesChart.canvas.addEventListener("click", function(event) {
-            const activePoints = expensesByCategoriesChart.getElementsAtEvent(event);
+        despesasPorCategorias.canvas.addEventListener("click", function(event) {
+            const activePoints = despesasPorCategorias.getElementsAtEvent(event);
             if (activePoints.length > 0) {
                 const clickedLabel = activePoints[0]._model.label;
             }
@@ -245,191 +237,264 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Create and configure the "Income/Outcome Growth by Month" chart
     function createIncomeGrowthChart(receivedData) {
+        let dataset = receivedData.crescimentoReceitasDespesas;
+
         // Destruir o gráfico existente, se houver
-        destroyChart(incomeGrowthChart);
-        incomeGrowthChart = new Chart(document.getElementById('incomeGrowthChart'), {
+        destroyChart(crescimentoReceitasDespesas);
+        var meses = Object.keys(dataset);
+
+        crescimentoReceitasDespesas = new Chart(document.getElementById('crescimentoReceitasDespesas'), {
             type: 'bar',
             data: {
-                labels: Object.keys(receivedData.income_outcome_growth_data),
+                labels: meses,
                 datasets: [{
-                    label: 'Renda',
-                    data: Object.values(receivedData.income_outcome_growth_data).map(item => item.income),
-                    backgroundColor: '#a4eba4',
-                    borderWidth: 1,
-                    fill: false
+                    label: "Receita",
+                    type: "bar",
+                    stack: "Receitas",
+                    backgroundColor: 'rgba(0,250,0,0.52)',
+                    data: meses.map(function (mes) { return dataset[mes].receitas; }),
                 }, {
-                    label: 'Despesa',
-                    data: Object.values(receivedData.income_outcome_growth_data).map(item => item.outcome),
-                    backgroundColor: '#ec5353',
-                    borderWidth: 1,
-                    fill: false
+                    label: "Crédito mês anterior",
+                    type: "bar",
+                    stack: "Receitas",
+                    backgroundColor: 'rgba(5,36,238,0.71)',
+                    data: meses.map(function (mes) { return dataset[mes].credito; }),
+                }, {
+                    label: "Despesas",
+                    type: "bar",
+                    stack: "Despesas",
+                    backgroundColor: 'rgba(243,2,2,0.55)',
+                    data: meses.map(function (mes) { return dataset[mes].despesas; }),
+                }, {
+                    label: "Débito mês anterior",
+                    type: "bar",
+                    stack: "Despesas",
+                    backgroundColor: 'rgb(255,242,2)',
+                    data: meses.map(function (mes) { return dataset[mes].debito; }),
                 }]
             },
             options: {
-                maintainAspectRatio : false,
-                responsive : true,
+                maintainAspectRatio: false,
+                responsive: true,
+                scales: {
+                    xAxes: [{
+                        stacked: true,
+                        ticks: {
+                            beginAtZero: true,
+                        }
+                    }],
+                    yAxes: [{
+                        stacked: true,
+                    }]
+                },
             }
         });
     }
 
-    function createIncomeVsOutcomeChart(receivedData) {
+    function createProjecaoGastosChart(receivedData) {
         // Destruir o gráfico existente, se houver
-        destroyChart(incomeVsOutcomeChart);
-        incomeVsOutcomeChart = new Chart(document.getElementById('incomeVsOutcomeChart'), {
+        destroyChart(projecaoGastos);
+        projecaoGastos = new Chart(document.getElementById('projecaoGastos'), {
             type: 'bar',
             data: {
-                labels: Object.keys(receivedData.income_outcome_growth_data),
+                labels: Object.keys(receivedData.despesasFuturas),
                 datasets: [{
-                    label: 'Despesas',
-                    data: Object.values(receivedData.income_outcome_growth_data).map(item => item.outcome),
-                    backgroundColor: '#d47668',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1,
-                    fill: false
+                    label: 'Compras parceladas',
+                    data: Object.values(receivedData.despesasFuturas).map(item => item.comprasParceladas),
+                    backgroundColor: '#ff5d56',
+                }, {
+                    label: "Gastos planejados",
+                    backgroundColor: '#ee9a8a',
+                    data: Object.values(receivedData.despesasFuturas).map(item => item.despesasPlanejadas),
                 }]
             },
             options: {
                 maintainAspectRatio : false,
                 responsive : true,
+                tooltips: {
+                    mode: 'label',
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            let planejamento = data.datasets[tooltipItem.datasetIndex].label;
+                            let valor = parseFloat(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index]);
+                            let total = 0;
+                            for (let i = 0; i < data.datasets.length; i++)
+                                total += parseFloat(data.datasets[i].data[tooltipItem.index]);
+                            if (tooltipItem.datasetIndex != data.datasets.length - 1) {
+                                return planejamento + " : R$ " + valor.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+                            } else {
+                                return [planejamento + " : R$ " + valor.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'), "Total : R$ " + total];
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        stacked: true,
+                        ticks: {
+                            beginAtZero: true,
+                        }
+                    }],
+                    yAxes: [{
+                        stacked: true,
+                    }]
+                },
             }
         });
+    }
+
+    function createMediaGastosCategoriasChart(receivedData) {
+        let dataset= receivedData.mediaGastosCategorias;
+        // Destruir o gráfico existente, se houver
+        destroyChart(mediaGastosCategoria);
+        projecaoGastos = new Chart(document.getElementById('mediaGastosCategoria'), {
+    type: 'bar',
+    data: {
+        labels: Object.keys(dataset),
+        datasets: [{
+            data: Object.values(dataset),
+            backgroundColor: '#f3a994',
+        }]
+    },
+    options: {
+        maintainAspectRatio: false,
+        responsive: true,
+        legend: {
+            display: false,
+        },
+        title: {
+            display: true,
+            text: "Média de gastos por categoria dos últimos 3 meses",
+        },
+        scales: {
+            xAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                }
+            }]
+        },
+    }
+});
     }
 
     function createTransactionsTable(receivedData) {
-    if (transactionsTable) {
-        transactionsTable.clear().draw();
-        transactionsTable.rows.add(receivedData.transactions).draw();
-    } else {
-        $('#transactionsTable thead tr')
-            .clone(true)
-            .addClass('filters')
-            .appendTo('#transactionsTable thead');
-        transactionsTable = $('#transactionsTable').DataTable({
-            data: receivedData.transactions,
-            columns: [
-                { data: 'data' },
-                { data: 'tipo'},
-                { data: 'descricao' },
-                { data: 'categoria' },
-                { data: 'subcategoria' },
-                { data: 'valor' },
-            ],
-            language: {
-                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
-            },
-            paging: true,
-            info: true,
-            responsive: true,
-            autoWidth: false,
-            order: [[0, 'desc']],
-            pageLength: 5,
-            lengthMenu: [5, 10, 20, 50, 100],
-            orderCellsTop: true,
-            fixedHeader: true,
-            initComplete: function () {
-                var api = this.api();
-
-                // For each column
-                api
-                    .columns()
-                    .eq(0)
-                    .each(function (colIdx) {
-                        // Set the header cell to contain the input element
-                        var cell = $('.filters th').eq(
-                            $(api.column(colIdx).header()).index()
-                        );
-                        var title = $(cell).text();
-                        $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-                        // On every keypress in this input
-                        $(
-                            'input',
-                            $('.filters th').eq($(api.column(colIdx).header()).index())
-                        )
-                            .off('keyup change')
-                            .on('change', function (e) {
-                                // Get the search value
-                                $(this).attr('title', $(this).val());
-                                var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                                var cursorPosition = this.selectionStart;
-                                // Search the column for that value
-                                api
-                                    .column(colIdx)
-                                    .search(
-                                        this.value != ''
-                                            ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                            : '',
-                                        this.value != '',
-                                        this.value == ''
-                                    )
-                                    .draw();
-                            })
-                            .on('keyup', function (e) {
-                                e.stopPropagation();
-
-                                $(this).trigger('change');
-                                $(this)
-                                    .focus()[0]
-                                    .setSelectionRange(cursorPosition, cursorPosition);
-                            });
-                    });
-            },
-            columnDefs: [
-                {
-                    targets: 0,
-                    render: function (receivedData, type, row) {
-                        return moment(receivedData).format('DD/MM/YYYY');
-                    }
+        if (transacoesDataTable) {
+            transacoesDataTable.clear().draw();
+            transacoesDataTable.rows.add(receivedData.transacoes).draw();
+        } else {
+            $('#transacoesDataTable thead tr')
+                .clone(true)
+                .addClass('filters')
+                .appendTo('#transacoesDataTable thead');
+            transacoesDataTable = $('#transacoesDataTable').DataTable({
+                data: receivedData.transacoes,
+                columns: [
+                    { data: 'data' },
+                    { data: 'tipo'},
+                    { data: 'descricao' },
+                    { data: 'categoria' },
+                    { data: 'subcategoria' },
+                    { data: 'valor' },
+                ],
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
                 },
-                {
-                    targets: 5,
-                    render: function (receivedData, type, row) {
-                        return 'R$ ' + receivedData.toFixed(2).replace('.', ',');
+                paging: true,
+                info: true,
+                responsive: true,
+                autoWidth: false,
+                order: [[0, 'desc']],
+                pageLength: 5,
+                lengthMenu: [5, 10, 20, 50, 100],
+                orderCellsTop: true,
+                fixedHeader: true,
+                initComplete: function () {
+                    let api = this.api();
+                    let cursorPosition;
+
+                    // For each column
+                    api
+                        .columns()
+                        .eq(0)
+                        .each(function (colIdx) {
+                            // Set the header cell to contain the input element
+                            let cell = $('.filters th').eq(
+                                $(api.column(colIdx).header()).index()
+                            );
+                            let title = $(cell).text();
+                            $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                            // On every keypress in this input
+                            $(
+                                'input',
+                                $('.filters th').eq($(api.column(colIdx).header()).index())
+                            )
+                                .off('keyup change')
+                                .on('change', function (e) {
+                                    // Get the search value
+                                    $(this).attr('title', $(this).val());
+                                    let regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                                    cursorPosition = this.selectionStart;
+                                    // Search the column for that value
+                                    api
+                                        .column(colIdx)
+                                        .search(
+                                            this.value != ''
+                                                ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                                : '',
+                                            this.value != '',
+                                            this.value == ''
+                                        )
+                                        .draw();
+                                })
+                                .on('keyup', function (e) {
+                                    e.stopPropagation();
+
+                                    $(this).trigger('change');
+                                    $(this)
+                                        .focus()[0]
+                                        .setSelectionRange(cursorPosition, cursorPosition);
+                                });
+                        });
+                },
+                columnDefs: [
+                    {
+                        targets: 0,
+                        render: function (receivedData, type, row) {
+                            return moment(receivedData).format('DD/MM/YYYY');
+                        }
+                    },
+                    {
+                        targets: 5,
+                        render: function (receivedData, type, row) {
+                            return 'R$ ' + receivedData.toFixed(2).replace('.', ',');
+                        }
+                    }
+                ],
+                rowCallback: function (row, receivedData) {
+                    if (receivedData.tipo === 'S') {
+                        $(row).addClass('bg-light-red');
+                    } else if (receivedData.tipo === 'E') {
+                        $(row).addClass('bg-light-green'); // Transação de entrada
                     }
                 }
-            ],
-            rowCallback: function (row, receivedData) {
-                if (receivedData.tipo === 'S') {
-                    $(row).addClass('bg-light-red');
-                } else if (receivedData.tipo === 'E') {
-                    $(row).addClass('bg-light-green'); // Transação de entrada
-                }
-            }
-        });
-
-        transactionsTable.rows.add(receivedData.transactions).draw();
+            });
+        }
     }
-}
-
-    // Function to initialize the charts with the data
-    function initializeCharts() {
-        // Definir um valor inicial para o mês e ano
-        const today = new Date();
-        currentMonth = today.getMonth() + 1;
-        currentYear = today.getFullYear();
-
-
-        fetchData(currentMonth, currentYear, (receivedData) => {
-            updatePageData(receivedData);
-        });
-    }
-
-    // Call initializeCharts to load the charts with the data from the server
-    initializeCharts();
 });
 
 $(function () {
-  'use strict'
+    'use strict'
 
-  // Make the dashboard widgets sortable Using jquery UI
-  $('.connectedSortable').sortable({
-    placeholder: 'sort-highlight',
-    connectWith: '.connectedSortable',
-    handle: '.card-header, .nav-tabs',
-    forcePlaceholderSize: true,
-    zIndex: 999999
-  })
-  $('.connectedSortable .card-header').css('cursor', 'move')
+    // Make the dashboard widgets sortable Using jquery UI
+    $('.connectedSortable').sortable({
+        placeholder: 'sort-highlight',
+        connectWith: '.connectedSortable',
+        handle: '.card-header, .nav-tabs',
+        forcePlaceholderSize: true,
+        zIndex: 999999
+    })
+    $('.connectedSortable .card-header').css('cursor', 'move')
 
 })
