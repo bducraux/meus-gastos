@@ -1,18 +1,21 @@
 document.addEventListener("DOMContentLoaded", function() {
     // Definir variáveis para os gráficos
-    let expensesByCategoriesChart;
-    let incomeGrowthChart;
-    let incomeVsOutcomeChart;
-    let transactionsTable;
+    let despesasPorCategorias;
+    let crescimentoRendaDespesas;
+    let projecaoGastos;
+    let transacoesDataTable;
     let receivedData;
     let categoriesData
     let subcategoriesData
 
     // Definir cores para os gráficos
     const paletaCores = [
-    '#F7BE34', '#0F52F7', '#F71B70', '#02F79D', '#C70FF7',
-    '#FC3A0F', '#00c0ef', '#3c8dbc', '#d2d6de', '#132226', '#99d8f7', '#a37c27', '#0c0e70', '#F26E61', '#662E54'
-    ]
+        '#1F77B4', '#FF7F0E', '#2CA02C', '#D62728', '#9467BD',
+        '#8C564B', '#E377C2', '#2C3864', '#BCBD22', '#17BECF',
+        '#F6611E', '#008000', '#8B008B', '#FF00FF', '#FFD700',
+        '#800000', '#00FFFF', '#00FF00', '#4B0082', '#FF4500',
+        '#a37c27', '#0c0e70', '#662E54', '#3c8dbc', '#00c0ef'
+    ];
 
     // Cores personalizadas para as categorias
     const labelColors = {
@@ -74,29 +77,26 @@ document.addEventListener("DOMContentLoaded", function() {
         const titleElement = document.getElementById("current_month_year");
         titleElement.innerText = `${months[currentMonth - 1]} ${currentYear}`;
 
-        const rendaTotalElement = document.getElementById("rendaTotal");
-        rendaTotalElement.innerText = receivedData.rendaTotal;
+        const receitasElement = document.getElementById("receitas");
+        receitasElement.innerText = receivedData.receitas;
 
-        const despesaTotalElement = document.getElementById("despesaTotal");
-        despesaTotalElement.innerText = receivedData.despesaTotal;
+        const despesasElement = document.getElementById("despesas");
+        despesasElement.innerText = receivedData.despesas;
 
         const saldoTotalElement = document.getElementById("saldoTotal");
-        saldoTotalElement.innerText = receivedData.saltoTotal;
+        saldoTotalElement.innerText = receivedData.saldoTotal;
 
         const reservasElement = document.getElementById("reservas");
         reservasElement.innerText = receivedData.reservas;
 
-        categoriesData = receivedData.gastosPorCategorias;
-        subcategoriesData = receivedData.gastosPorSubcategorias;
+        categoriesData = receivedData.despesasPorCategorias;
+        subcategoriesData = receivedData.despesasPorSubcategorias;
     }
 
     // Função para atualizar a página com os dados do mês atual
     function fetchDataAndUpdatePage() {
         fetchData(currentMonth, currentYear, (receivedData) => {
             updatePageData(receivedData);
-            console.log("categoriesData", categoriesData);
-            console.log("subcategoriesData", subcategoriesData);
-
             createCharts(receivedData, categoriesData, subcategoriesData);
         });
     }
@@ -134,23 +134,38 @@ document.addEventListener("DOMContentLoaded", function() {
             const subcategoriesData = {};
 
 
-            if (receivedData.gastosPorSubcategorias[clickedLabel]) {
-            const subcategoriesData = receivedData.gastosPorSubcategorias[clickedLabel];
+            if (receivedData.despesasPorSubcategorias[clickedLabel]) {
+            const subcategoriesData = receivedData.despesasPorSubcategorias[clickedLabel];
                 updateSubcategoriesChart(categoriesData, subcategoriesData);
             }
         }
     }
 
     function createDonutChart(chartData) {
-        const defaultColors = Object.keys(chartData).map(label => labelColors[label] || paletaCores);
-
-        const customColors = defaultColors.map((color, index) => {
-            if (Object.keys(chartData)[index] === 'Não categorizado') {
-                return '#999999'; // Set custom color for "Não categorizado"
+        const customColors = paletaCores.map((color, index) => {
+            const label = Object.keys(chartData)[index];
+            switch (label) {
+                case 'Não categorizado':
+                    return '#999999';
+                case 'Beleza':
+                    return '#C70FF7';
+                case 'Casa':
+                    return '#F7B50F';
+                case 'Aluguel':
+                    return '#F70F0F';
+                case 'Judy':
+                    return '#F71B70';
+                case 'Lazer':
+                    return '#0FF7F7';
+                case 'Cartão de Crédito':
+                    return '#F26E61';
+                case 'Manu':
+                    return '#69239E';
+                default:
+                    return color;
             }
-            return color;
         });
-        donutChart = new Chart(document.getElementById('expensesByCategoriesChart'), {
+        donutChart = new Chart(document.getElementById('despesasPorCategorias'), {
             type: 'doughnut',
             data: {
                 labels: Object.keys(chartData),
@@ -177,23 +192,23 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function createExpensesByCategoriesChart(categoriesData, subcategoriesData) {
         // Destruir o gráfico existente, se houver
-        destroyChart(expensesByCategoriesChart);
+        destroyChart(despesasPorCategorias);
 
-        expensesByCategoriesChart = createDonutChart(categoriesData)
+        despesasPorCategorias = createDonutChart(categoriesData)
 
         // Verificar se não existem dados e exibir a mensagem
-        if (Object.keys(receivedData.gastosPorCategorias).length === 0) {
+        if (Object.keys(receivedData.despesasPorCategorias).length === 0) {
             document.getElementById('noDataMessage').style.display = 'block';
         } else {
             document.getElementById('noDataMessage').style.display = 'none';
         }
 
         // Adicionar evento de clique ao gráfico de categorias
-        expensesByCategoriesChart.canvas.addEventListener("click", function(event) {
-            const activePoints = expensesByCategoriesChart.getElementsAtEvent(event);
+        despesasPorCategorias.canvas.addEventListener("click", function(event) {
+            const activePoints = despesasPorCategorias.getElementsAtEvent(event);
             if (activePoints.length > 0) {
                 const clickedLabel = activePoints[0]._model.label;
-                if (receivedData.gastosPorSubcategorias[clickedLabel]) {
+                if (receivedData.despesasPorSubcategorias[clickedLabel]) {
                     handleCategoryClick(event, activePoints, receivedData);
                 }
             }
@@ -203,7 +218,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Função para atualizar o gráfico para mostrar as subcategorias
     function updateSubcategoriesChart(categoriesData, subcategoriesData) {
         // Destruir o gráfico existente, se houver
-        destroyChart(expensesByCategoriesChart);
+        destroyChart(despesasPorCategorias);
 
         // Mostrar o botão de volta quando as subcategorias forem exibidas
         document.getElementById('backButtonContainer').style.display = 'block';
@@ -214,11 +229,11 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById('backButtonContainer').style.display = 'none'; // Esconder o botão novamente
         });
 
-        expensesByCategoriesChart = createDonutChart(subcategoriesData);
+        despesasPorCategorias = createDonutChart(subcategoriesData);
 
         // Adicionar evento de clique ao gráfico de subcategorias
-        expensesByCategoriesChart.canvas.addEventListener("click", function(event) {
-            const activePoints = expensesByCategoriesChart.getElementsAtEvent(event);
+        despesasPorCategorias.canvas.addEventListener("click", function(event) {
+            const activePoints = despesasPorCategorias.getElementsAtEvent(event);
             if (activePoints.length > 0) {
                 const clickedLabel = activePoints[0]._model.label;
             }
@@ -227,43 +242,68 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Create and configure the "Income/Outcome Growth by Month" chart
     function createIncomeGrowthChart(receivedData) {
+        let dataset = receivedData.crescimentoRendaDespesas;
+
         // Destruir o gráfico existente, se houver
-        destroyChart(incomeGrowthChart);
-        incomeGrowthChart = new Chart(document.getElementById('incomeGrowthChart'), {
-            type: 'line',
+        destroyChart(crescimentoRendaDespesas);
+        var meses = Object.keys(dataset);
+
+        crescimentoRendaDespesas = new Chart(document.getElementById('crescimentoRendaDespesas'), {
+            type: 'bar',
             data: {
-                labels: Object.keys(receivedData.income_outcome_growth_data),
+                labels: meses,
                 datasets: [{
-                    label: 'Renda',
-                    data: Object.values(receivedData.income_outcome_growth_data).map(item => item.income),
-                    borderColor: '#00ff8a',
-                    borderWidth: 1,
-                    fill: false
+                  label: "Receita",
+                  type: "bar",
+                  stack: "Receitas",
+                  backgroundColor: 'rgba(0,250,0,0.52)',
+                  data: meses.map(function (mes) { return dataset[mes].receitas; }),
                 }, {
-                    label: 'Despesa',
-                    data: Object.values(receivedData.income_outcome_growth_data).map(item => item.outcome),
-                    borderColor: '#f7220a',
-                    borderWidth: 1,
-                    fill: false
+                  label: "Crédito mês anterior",
+                  type: "bar",
+                  stack: "Receitas",
+                  backgroundColor: 'rgba(5,36,238,0.71)',
+                  data: meses.map(function (mes) { return dataset[mes].credito; }),
+                }, {
+                  label: "Despesas",
+                  type: "bar",
+                  stack: "Despesas",
+                  backgroundColor: 'rgba(243,2,2,0.55)',
+                  data: meses.map(function (mes) { return dataset[mes].despesas; }),
+                }, {
+                  label: "Débito mês anterior",
+                  type: "bar",
+                  stack: "Despesas",
+                  backgroundColor: 'rgb(255,242,2)',
+                  data: meses.map(function (mes) { return dataset[mes].debito; }),
                 }]
-            },
-            options: {
-                maintainAspectRatio : false,
-                responsive : true,
-            }
-        });
+              },
+              options: {
+                scales: {
+                  xAxes: [{
+                    stacked: true,
+                    ticks: {
+                      beginAtZero: true,
+                    }
+                  }],
+                  yAxes: [{
+                    stacked: true,
+                  }]
+                },
+              }
+            });
     }
 
     function createIncomeVsOutcomeChart(receivedData) {
         // Destruir o gráfico existente, se houver
-        destroyChart(incomeVsOutcomeChart);
-        incomeVsOutcomeChart = new Chart(document.getElementById('incomeVsOutcomeChart'), {
+        destroyChart(projecaoGastos);
+        projecaoGastos = new Chart(document.getElementById('projecaoGastos'), {
             type: 'bar',
             data: {
-                labels: Object.keys(receivedData.income_outcome_growth_data),
+                labels: Object.keys(receivedData.crescimentoRendaDespesas),
                 datasets: [{
                     label: 'Despesas',
-                    data: Object.values(receivedData.income_outcome_growth_data).map(item => item.outcome),
+                    data: Object.values(receivedData.crescimentoRendaDespesas).map(item => item.despesas),
                     backgroundColor: '#d47668',
                     borderColor: 'rgba(255, 99, 132, 1)',
                     borderWidth: 1,
@@ -278,16 +318,16 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function createTransactionsTable(receivedData) {
-    if (transactionsTable) {
-        transactionsTable.clear().draw();
-        transactionsTable.rows.add(receivedData.transactions).draw();
+    if (transacoesDataTable) {
+        transacoesDataTable.clear().draw();
+        transacoesDataTable.rows.add(receivedData.transacoes).draw();
     } else {
-        $('#transactionsTable thead tr')
+        $('#transacoesDataTable thead tr')
             .clone(true)
             .addClass('filters')
-            .appendTo('#transactionsTable thead');
-        transactionsTable = $('#transactionsTable').DataTable({
-            data: receivedData.transactions,
+            .appendTo('#transacoesDataTable thead');
+        transacoesDataTable = $('#transacoesDataTable').DataTable({
+            data: receivedData.transacoes,
             columns: [
                 { data: 'data' },
                 { data: 'tipo'},
@@ -300,7 +340,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
             },
             paging: true,
-            searching: true,
             info: true,
             responsive: true,
             autoWidth: false,
@@ -310,7 +349,8 @@ document.addEventListener("DOMContentLoaded", function() {
             orderCellsTop: true,
             fixedHeader: true,
             initComplete: function () {
-                var api = this.api();
+                let api = this.api();
+                let cursorPosition;
 
                 // For each column
                 api
@@ -318,10 +358,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     .eq(0)
                     .each(function (colIdx) {
                         // Set the header cell to contain the input element
-                        var cell = $('.filters th').eq(
+                        let cell = $('.filters th').eq(
                             $(api.column(colIdx).header()).index()
                         );
-                        var title = $(cell).text();
+                        let title = $(cell).text();
                         $(cell).html('<input type="text" placeholder="' + title + '" />');
 
                         // On every keypress in this input
@@ -333,9 +373,9 @@ document.addEventListener("DOMContentLoaded", function() {
                             .on('change', function (e) {
                                 // Get the search value
                                 $(this).attr('title', $(this).val());
-                                var regexr = '({search})'; //$(this).parents('th').find('select').val();
+                                let regexr = '({search})'; //$(this).parents('th').find('select').val();
 
-                                var cursorPosition = this.selectionStart;
+                                cursorPosition = this.selectionStart;
                                 // Search the column for that value
                                 api
                                     .column(colIdx)
@@ -380,10 +420,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             }
         });
-
-        transactionsTable.rows.add(receivedData.transactions).draw();
     }
 }
+
 
     // Function to initialize the charts with the data
     function initializeCharts() {
