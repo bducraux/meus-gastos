@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.forms import inlineformset_factory
 from django import forms
-import tempfile
 import os
 
 from .models import Transacao, TransacaoItem, Planejamento
@@ -31,41 +30,14 @@ class TransacaoItemInline(admin.TabularInline):
 
 
 class TransacaoForm(forms.ModelForm):
-    txt_file = forms.FileField(label='Carregar fatura', required=False)
-
     class Meta:
         model = Transacao
-        fields = ['identificacao', 'memo', 'valor', 'data', 'tipo', 'categoria', 'efetivado', 'status']
+        fields = ['identificacao', 'memo', 'observacao', 'valor', 'data', 'tipo', 'categoria', 'efetivado', 'status']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.fields['categoria'].queryset = Categoria.objects.filter(is_active=True).order_by('parent_path')
-
-    def process_txt_file(self):
-        uploaded_file = self.cleaned_data.get('txt_file')
-
-        if uploaded_file:
-            with tempfile.NamedTemporaryFile(delete=False) as temp_file:
-                # Write the uploaded file's content to the temporary file
-                temp_file.write(uploaded_file.read())
-                temp_file_path = temp_file.name
-
-                # Process the temporary file and create TransacaoItem instances
-                with open(temp_file_path, 'r') as file:
-                    for line in file:
-                        # Process each line of the file and create TransacaoItem instances
-                        # Example: parse line and create TransacaoItem
-                        parts = line.strip().split('\t')  # Adapt this based on your file format
-                        descricao, valor = parts[0], parts[1]
-                        TransacaoItem.objects.create(transacao=self.instance, descricao=descricao, valor=valor)
-
-                # Delete the temporary file
-                os.remove(temp_file_path)
-
-            return True
-
-        return False
 
 
 class FilledCategoriaFilter(admin.SimpleListFilter):
@@ -91,7 +63,7 @@ class TransacaoAdmin(admin.ModelAdmin):
     list_display = ['data', 'memo', 'valor', 'tipo', 'categoria', 'efetivado', 'status']
     list_display_links = ['memo']
     list_filter = ['data', 'tipo', 'efetivado', 'status', FilledCategoriaFilter]
-    search_fields = ['memo__icontains', 'categoria__descricao', 'valor', 'data']
+    search_fields = ['memo__icontains', 'observacao__icontains', 'categoria__descricao', 'valor', 'data']
     list_per_page = 20
     inlines = [TransacaoItemInline]
 

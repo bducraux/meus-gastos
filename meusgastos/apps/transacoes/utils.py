@@ -1,7 +1,8 @@
 from meusgastos.apps.categorias.models import Categoria
 from meusgastos.apps.transacoes.models import Transacao
 from datetime import date
-from django.db.models import Sum, F
+from django.db.models import Sum
+from decimal import Decimal
 
 
 def get_transactions_with_items(year: int, month: int or None = None) -> list:
@@ -18,7 +19,9 @@ def get_transactions_with_items(year: int, month: int or None = None) -> list:
     if len(str(year)) != 4:
         raise ValueError('Year must be a 4 digits number')
 
-    transactions = Transacao.objects.filter(data__year=year,status=Transacao.STATUS_ACTIVE)
+    transactions = Transacao.objects.filter(data__year=year,
+                                            status=Transacao.STATUS_ACTIVE,
+                                            efetivado=True)
 
     if month is not None:
         transactions = transactions.filter(data__month=month)
@@ -30,7 +33,7 @@ def get_transactions_with_items(year: int, month: int or None = None) -> list:
 
         # se a transação não tiver itens ou se tiver items mais ainda sobrar valor na transação ela é adicionada
         # caso contrario ela é ignorada pois já foi descriminada nos items
-        if transaction.items.count() == 0 or (transaction.items.count() > 0 and transaction.valor > 0):
+        if transaction.items.count() == 0 or (transaction.items.count() > 0 and abs(transaction.valor) > 0):
             return_list.append({
                 'data': transaction.data,
                 'descricao': transaction.memo,
@@ -57,7 +60,39 @@ def get_transactions_with_items(year: int, month: int or None = None) -> list:
     return return_list
 
 
-def get_overview_month(year: int, month: int) -> tuple:
+def get_future_transactions() -> list:
+    """
+    Get all transactions above the current date
+    :return: list of transactions
+    """
+
+    current_date = date.today()
+    start_date = date(current_date.year, current_date.month, 1)
+
+    transactions = Transacao.objects.filter(
+        data__gte=start_date,
+        data__year=current_date.year,
+        status=Transacao.STATUS_ACTIVE,
+        efetivado=False)
+
+    transactions = transactions.prefetch_related('items', 'categoria').order_by('data')
+
+    return_list = []
+    for transaction in transactions:
+        return_list.append({
+            'data': transaction.data,
+            'descricao': transaction.memo,
+            'valor': transaction.valor,
+            'tipo': transaction.tipo,
+            'categoria_descricao': transaction.categoria.descricao if transaction.categoria else 'Não categorizado',
+            'categoria_parent': transaction.categoria.parent.descricao if (
+                    transaction.categoria and transaction.categoria.parent) else ''
+        })
+
+    return return_list
+
+
+def get_month_overview(year: int, month: int) -> tuple:
     """
     Get a overview of the month with the sum of income, expenses and balance
     :param month: int (1-12) (month number)
@@ -70,7 +105,10 @@ def get_overview_month(year: int, month: int) -> tuple:
     if len(str(year)) != 4:
         raise ValueError('Year must be a 4 digits number')
 
-    transacoes = Transacao.objects.filter(data__year=year, data__month=month,  status=Transacao.STATUS_ACTIVE)
+    transacoes = Transacao.objects.filter(data__year=year,
+                                          data__month=month,
+                                          status=Transacao.STATUS_ACTIVE,
+                                          efetivado=True)
 
     # income
     income = transacoes.filter(tipo=Transacao.TYPE_INCOME).aggregate(total_income=Sum('valor_total'))['total_income']
@@ -119,3 +157,28 @@ def is_transaction_ignored(memo: str) -> bool:
             return True
 
     return False
+
+
+def get_balance_at_given_date(date_to_check: date) -> Decimal:
+    """
+    Get the balance at a given date
+    :param date_to_check: date - date to check the balance
+    :return: Decimal - balance at the given date
+    """
+
+    # get all transactions until the given date and sum the valor_total of income and expenses
+    transactions = Transacao.objects.filter(data__lt=date_to_check,
+                                            status=Transacao.STATUS_ACTIVE,
+                                            efetivado=True).order_by('data')
+
+    if not transactions:
+        return Decimal(0)
+
+    income = sum(
+        [transaction.valor_total for transaction in transactions if transaction.tipo == Transacao.TYPE_INCOME]
+    )
+    expenses = sum(
+        [transaction.valor_total for transaction in transactions if transaction.tipo == Transacao.TYPE_EXPENSE]
+    )
+
+    return Decimal(income) - abs(Decimal(expenses))

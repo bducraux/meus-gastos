@@ -1,14 +1,15 @@
 # coding: utf-8
 from datetime import date
-
 from dateutil.relativedelta import relativedelta
+from decimal import Decimal
+
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import Q
 from django.db.models import Sum
 
 from meusgastos.apps.categorias.models import Categoria
-from meusgastos.apps.core.utils import get_month_name
+from meusgastos.apps.core.utils import mes_em_portugues
 
 
 class Transacao(models.Model):
@@ -41,6 +42,7 @@ class Transacao(models.Model):
     id = models.BigAutoField(primary_key=True)
     identificacao = models.CharField(verbose_name='Identificação', max_length=100, unique=True, blank=True, null=True)
     memo = models.TextField(verbose_name='Memo')
+    observacao = models.TextField(verbose_name='Observação', blank=True, null=True)
     valor = models.DecimalField(
         verbose_name='Valor',
         max_digits=10,
@@ -202,28 +204,27 @@ class Planejamento(models.Model):
         return active_planejamentos
 
     @staticmethod
-    def gerar_lista_planejamento_anual(data_inicio: date) -> list[dict]:
+    def gerar_lista_planejamento_anual(data_inicio: date) -> dict:
         """
         Gera uma lista com os gastos planejados para o ano começando na data_inicio
-        retornando uma lista: [{'mes': 'Janeiro', 'categoria: 'Aluguel', 'valor': 1000}, ...]
+        retornando um dicionário: {'Janeiro': {'Aluguel': 1000}, 'Fevereiro': {'Aluguel': 1000}}
         :param data_inicio: date - data de início da lista
-        :return: list[dict] - lista com os gastos planejados para o ano
+        :return: dict - dict com os gastos planejados para o ano
         """
-        lista_planejamento_anual = []
-
+        planejamento_anual = {}
         for i in range(12 - data_inicio.month + 1):
             mes_atual = (data_inicio.month + i - 1) % 12 + 1
             data_atual = date(year=data_inicio.year, month=mes_atual, day=1)
 
             planejamentos_ativos = Planejamento.get_planejamentos_ativos_do_mes(data_atual)
-            planejamento_do_mes = {
-                'mes': get_month_name(mes_atual),
-                'planejamento': [
-                        {'categoria': planejamento.categoria.descricao, 'valor': planejamento.valor}
-                        for planejamento in planejamentos_ativos
-                    ]
-            }
 
-            lista_planejamento_anual.append(planejamento_do_mes)
+            planejamento_mes = {}
+            valor_total_mes = Decimal('0.00')
+            for planejamento in planejamentos_ativos:
+                valor_total_mes += planejamento.valor
+                planejamento_mes[planejamento.categoria.descricao] = planejamento.valor
+            planejamento_mes['total'] = valor_total_mes
 
-        return lista_planejamento_anual
+            planejamento_anual[mes_em_portugues(mes_atual)] = planejamento_mes
+
+        return planejamento_anual
