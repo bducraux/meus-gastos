@@ -2,14 +2,14 @@ from datetime import date
 
 
 # Function accept a date or a int
-def get_month_name(month_data: date or int) -> str:
+def mes_em_portugues(mes_data: date or int) -> str:
     """
-    Get the month name in portuguese
-    :param month_data: date or int - date to get the month name or the month number
+    Retorna o nome do mês em português
+    :param mes_data: date or int - data ou número do mês (1-12)
     :return: str - month name in portuguese
     """
 
-    month_number = month_data.month if isinstance(month_data, date) else month_data
+    month_number = mes_data.month if isinstance(mes_data, date) else mes_data
 
     months_in_portuguese = {
         1: "Janeiro",
@@ -26,4 +26,4 @@ def get_month_name(month_data: date or int) -> str:
         12: "Dezembro"
     }
 
-    return months_in_portuguese[month_number]
+    return months_in_portuguese.get(month_number, "Mês inválido")
