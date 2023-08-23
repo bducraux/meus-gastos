@@ -90,37 +90,30 @@ def test_gerar_lista_planejamento_anual(create_planejamento):
     )
 
     data_inicio = date(2023, 7, 1)
-    planejamentos_anuais = Planejamento.gerar_lista_planejamento_anual(data_inicio)
+    planejamento_anual = Planejamento.gerar_lista_planejamento_anual(data_inicio)
 
-    assert len(planejamentos_anuais) == 6  # Gera lista para 5 meses a partir de agosto
+    assert len(planejamento_anual) == 6  # Gera lista para 5 meses a partir de agosto
 
-    assert planejamentos_anuais[0]['mes'] == 'Julho'
-    assert planejamentos_anuais[0]['planejamento'] == []
+    assert planejamento_anual['Julho']['total'] == Decimal('0.00')
+    assert planejamento_anual['Julho'].get(categoria1.descricao) is None
+    assert planejamento_anual['Julho'].get(categoria2.descricao) is None
 
-    assert planejamentos_anuais[1]['mes'] == 'Agosto'
-    assert planejamentos_anuais[1]['planejamento'] == [
-        {'categoria': categoria1.descricao, 'valor': planejamento_1.valor}
-    ]
+    assert planejamento_anual['Agosto']['total'] == planejamento_1.valor
+    assert planejamento_anual['Agosto'].get(categoria1.descricao) == planejamento_1.valor
+    assert planejamento_anual['Agosto'].get(categoria2.descricao) is None
 
-    assert planejamentos_anuais[2]['mes'] == 'Setembro'
-    assert planejamentos_anuais[2]['planejamento'] == [
-        {'categoria': categoria2.descricao, 'valor': planejamento_2.valor},
-        {'categoria': categoria1.descricao, 'valor': planejamento_1.valor}
-    ]
+    assert planejamento_anual['Setembro']['total'] == planejamento_1.valor + planejamento_2.valor
+    assert planejamento_anual['Setembro'].get(categoria1.descricao) == planejamento_1.valor
+    assert planejamento_anual['Setembro'].get(categoria2.descricao) == planejamento_2.valor
 
-    assert planejamentos_anuais[3]['mes'] == 'Outubro'
-    assert planejamentos_anuais[3]['planejamento'] == [
-        {'categoria': categoria2.descricao, 'valor': planejamento_2.valor},
-        {'categoria': categoria1.descricao, 'valor': planejamento_1.valor}
-    ]
+    assert planejamento_anual['Outubro']['total'] == planejamento_1.valor + planejamento_2.valor
+    assert planejamento_anual['Outubro'].get(categoria1.descricao) == planejamento_1.valor
+    assert planejamento_anual['Outubro'].get(categoria2.descricao) == planejamento_2.valor
 
-    assert planejamentos_anuais[4]['mes'] == 'Novembro'
-    assert planejamentos_anuais[4]['planejamento'] == [
-        {'categoria': categoria2.descricao, 'valor': planejamento_2.valor},
-        {'categoria': categoria1.descricao, 'valor': planejamento_1.valor}
-    ]
+    assert planejamento_anual['Novembro']['total'] == planejamento_1.valor + planejamento_2.valor
+    assert planejamento_anual['Novembro'].get(categoria1.descricao) == planejamento_1.valor
+    assert planejamento_anual['Novembro'].get(categoria2.descricao) == planejamento_2.valor
 
-    assert planejamentos_anuais[5]['mes'] == 'Dezembro'
-    assert planejamentos_anuais[5]['planejamento'] == [
-        {'categoria': categoria1.descricao, 'valor': planejamento_1.valor}
-    ]
+    assert planejamento_anual['Dezembro']['total'] == planejamento_1.valor
+    assert planejamento_anual['Dezembro'].get(categoria1.descricao) == planejamento_1.valor
+    assert planejamento_anual['Dezembro'].get(categoria2.descricao) is None
