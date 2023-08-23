@@ -52,10 +52,17 @@ def extrator_ofx_bradesco(ofx_file_path: str) -> bool:
                                      f"{bank_transaction.trntype}|"
                                      f"{bank_transaction.trnamt}")
 
-                    Transacao.objects.update_or_create(
-                        identificacao=identificacao,
-                        defaults=transaction_dict
-                    )
+                    transacao, created = Transacao.objects.get_or_create(identificacao=identificacao,
+                                                                         defaults=transaction_dict)
+                    if not created:
+                        if transacao.categoria is None:
+                            transacao.categoria = transaction_dict['categoria']
+
+                        if transacao.memo != transaction_dict['memo']:
+                            transacao.memo = transaction_dict['memo']
+
+                        transacao.save()
+
             return True
         except IntegrityError as e:
             raise ValueError(f"Não foi possível importar as transações: {e}")
