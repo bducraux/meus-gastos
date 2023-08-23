@@ -14,7 +14,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
 lib64/
 parts/
 sdist/
@@ -162,6 +161,7 @@ cython_debug/
 /importacoes/extrato/
 /importacoes/conta
 /meusgastos/apps/categorias/fixtures/categorias_pessoais.json
+/meusgastos/apps/transacoes/fixtures/transacoes.json
 
-!/meusgastos/templates/admin/lib/
+
 !/importacoes/extrato/extrato_sample.ofx

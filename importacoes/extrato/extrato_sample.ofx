@@ -1,0 +1,1006 @@
+OFXHEADER:100
+DATA:OFXSGML
+VERSION:102
+SECURITY:NONE
+ENCODING:USASCII
+CHARSET:1252
+COMPRESSION:NONE
+OLDFILEUID:NONE
+NEWFILEUID:NONE
+<!-- Arquivo com dados de exemplo para o programa de controle financeiro
+
+!!! NAO EDITE OU APAGUE ESTE ARQUIVO, POIS ELE É UTILIZADO NOS TESTES AUTOMATIZADOS DO PROGRAMA !!!
+
+Dados gerados para o ano de 2022, banco Bradesco.
+
+Salário mensal: 5000,00 (pago no dia 1)
+
+Gastos fixos mensais:
+    - Escola: 1500,00 (pago no dia 10)
+    - Telefone: 120,00 (pago no dia 10)
+    - Curso de Inglês: 600,00 (pago no dia 10)
+    - Aluguel: 1000,00 (pago no dia 15)
+    - Condominio: 1000,00 (pago no dia 15)
+    Total: 4220,00
+
+-->
+<OFX>
+	<SIGNONMSGSRSV1>
+		<SONRS>
+			<STATUS>
+				<CODE>0
+				<SEVERITY>INFO
+			</STATUS>
+			<DTSERVER>20230101000000
+			<LANGUAGE>POR
+		</SONRS>
+	</SIGNONMSGSRSV1>
+	<BANKMSGSRSV1>
+		<STMTTRNRS>
+			<TRNUID>1001
+			<STATUS>
+				<CODE>0
+				<SEVERITY>INFO
+			</STATUS>
+			<STMTRS>
+				<CURDEF>BRL
+				<BANKACCTFROM>
+					<BANKID>0237
+					<ACCTID>00001/000001
+					<ACCTTYPE>CHECKING
+				</BANKACCTFROM>
+				<BANKTRANLIST>
+					<DTSTART>20220101000000
+					<DTEND>20221231000000
+					<!-- ... Janeiro ... -->
+					<STMTTRN>
+						<TRNTYPE>CREDIT
+						<DTPOSTED>20220101000000[-03:EST]
+						<TRNAMT>5000.00
+						<FITID>N20208:01/01/23:5000.0:0100100: Salario
+						<CHECKNUM>0100100
+						<MEMO>Salario
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220105000000[-03:EST]
+						<TRNAMT>-50.00
+						<FITID>N20224:05/01/22:-50.0:0100200: Visa Electron: Padaria
+						<CHECKNUM>0100200
+						<MEMO>Padaria
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220109000000[-03:EST]
+						<TRNAMT>-600.00
+						<FITID>N2025F:09/01/22:-600.0:0100300: Visa Electron: Mercado das Frutas
+						<CHECKNUM>0100300
+						<MEMO>Visa Electron Mercado das Frutas
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220109000000[-03:EST]
+						<TRNAMT>-20.00
+						<FITID>N2027D:09/01/22:-20.0:0100400: Visa Electron: Restaurante do Ze
+						<CHECKNUM>0100400
+						<MEMO>Visa Electron Restaurante do Ze
+					</STMTTRN>
+					<!-- Custos Fixos -->
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220110000000[-03:EST]
+						<TRNAMT>-1500.00
+						<FITID>N202B8:10/01/22:-1500.0:0100500: Transfe Pix: Des: Escola
+						<CHECKNUM>0100500
+						<MEMO>Transfe Pix Des: Escola
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220110000000[-03:EST]
+						<TRNAMT>-120.00
+						<FITID>N204AC:10/01/22:-120.00:0100600: Conta Telefone: Vivo Fixo-nac Dig-999999
+						<CHECKNUM>0100600
+						<MEMO>Conta Telefone Vivo Fixo-nac Dig-999999
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220110000000[-03:EST]
+						<TRNAMT>-600.00
+						<FITID>N2051F:10/01/22:-600.0:0100700: Pagto Cobranca: Curso de Ingles Fisk
+						<CHECKNUM>0100700
+						<MEMO>Pagto Cobranca Curso de Ingles Fisk
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220115000000[-03:EST]
+						<TRNAMT>-1000.00
+						<FITID>N2053D:15/01/22:-1000.0:0100800: Pagto Cobranca: Aluguel
+						<CHECKNUM>0100800
+						<MEMO>Pagto Cobranca Aluguel
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220115000000[-03:EST]
+						<TRNAMT>-1000.00
+						<FITID>N2053D:15/01/22:-1000.0:0100900: Pagto Cobranca: Condominio
+						<CHECKNUM>0100900
+						<MEMO>Pagto Cobranca Condominio
+					</STMTTRN>
+					<!-- Final de Custos Fixos -->
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220120000000[-03:EST]
+						<TRNAMT>-110.00
+						<FITID>N2055B:20/01/22:-250.0:0101000: Visa Electron: Supermercado Pague Menos
+						<CHECKNUM>0101000
+						<MEMO>Visa Electron Supermercado Pague Menos
+					</STMTTRN>
+					<!-- Extrato do mês de Janeiro
+                    Renda: 5000,00
+                    Despesas Fixas: 4220,00
+                    Despesas Variáveis: 780,00
+                    Despesas Totais: 5000,00
+                    Saldo: 0,00
+                    Saldo Anterior: 0,00
+                    Saldo Final: 0,00
+                    ---------------------------------------->
+					<!-- ... Fevereiro ... -->
+					<STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20220201000000[-03:EST]
+                        <TRNAMT>5000.00
+                        <FITID>N20208:01/02/22:5000.0:0200100: Salario
+                        <CHECKNUM>0200100
+                        <MEMO>Salario
+                    </STMTTRN>
+                    <!-- Custos Fixos -->
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220210000000[-03:EST]
+						<TRNAMT>-1500.00
+						<FITID>N202B8:10/02/22:-1500.0:0200200: Transfe Pix: Des: Escola
+						<CHECKNUM>0200200
+						<MEMO>Transfe Pix Des: Escola
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220210000000[-03:EST]
+						<TRNAMT>-120.00
+						<FITID>N204AC:10/02/22:-120.00:0200300: Conta Telefone: Vivo Fixo-nac Dig-999999
+						<CHECKNUM>0200300
+						<MEMO>Conta Telefone Vivo Fixo-nac Dig-999999
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220210000000[-03:EST]
+						<TRNAMT>-600.00
+						<FITID>N2051F:10/02/22:-600.0:0200400: Pagto Cobranca: Curso de Ingles Fisk
+						<CHECKNUM>0200400
+						<MEMO>Pagto Cobranca Curso de Ingles Fisk
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220215000000[-03:EST]
+						<TRNAMT>-1000.00
+						<FITID>N2053D:15/02/22:-1000.0:0200500: Pagto Cobranca: Aluguel
+						<CHECKNUM>0200500
+						<MEMO>Pagto Cobranca Aluguel
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220215000000[-03:EST]
+						<TRNAMT>-1000.00
+						<FITID>N2053D:15/02/22:-1000.0:0200600: Pagto Cobranca: Condominio
+						<CHECKNUM>0200600
+						<MEMO>Pagto Cobranca Condominio
+					</STMTTRN>
+					<!-- Final de Custos Fixos ---->
+					<STMTTRN>
+					    <TRNTYPE>DEBIT
+                        <DTPOSTED>20220225000000[-03:EST]
+                        <TRNAMT>-700.00
+                        <FITID>N2055B:25/02/22:-700.0:0200700: Visa Electron: Supermercado Pague Menos
+                        <CHECKNUM>0200700
+                        <MEMO>Visa Electron Supermercado Pague Menos
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20220228000000[-03:EST]
+                        <TRNAMT>-80.00
+                        <FITID>N2055B:28/02/22:-80.0:0200800: Invest Facil
+                        <CHECKNUM>0200800
+                        <MEMO>Invest Facil
+                    </STMTTRN>
+                    <!-- Extrato do mês de Fevereiro
+                    Renda: 5000,00
+                    Despesas Fixas: 4220,00
+                    Despesas Variáveis: 700,00
+                    Despesas Totais: 4920,00
+                    Saldo: 80,00
+                    Saldo Anterior: 0,00
+                    Saldo Final: 80,00
+                    ---------------------------------------->
+                    <!-- ... Março ... -->
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20220301000000[-03:EST]
+                        <TRNAMT>5000.00
+                        <FITID>N20208:01/03/22:5000.0:0300100: Salario
+                        <CHECKNUM>0300100
+                        <MEMO>Salario
+                    </STMTTRN>
+                    <!-- Custos Fixos -->
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220310000000[-03:EST]
+						<TRNAMT>-1500.00
+						<FITID>N202B8:10/03/22:-1500.0:0300200: Transfe Pix: Des: Escola
+						<CHECKNUM>0300200
+						<MEMO>Transfe Pix Des: Escola 02/08
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220310000000[-03:EST]
+						<TRNAMT>-120.00
+						<FITID>N204AC:10/03/22:-120.00:0300300: Conta Telefone: Vivo Fixo-nac Dig-999999
+						<CHECKNUM>0300300
+						<MEMO>Conta Telefone Vivo Fixo-nac Dig-999999
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220310000000[-03:EST]
+						<TRNAMT>-600.00
+						<FITID>N2051F:10/03/22:-600.0:0300400: Pagto Cobranca: Curso de Ingles Fisk
+						<CHECKNUM>0300400
+						<MEMO>Pagto Cobranca Curso de Ingles Fisk
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220315000000[-03:EST]
+						<TRNAMT>-1000.00
+						<FITID>N2053D:15/03/22:-1000.0:0300500: Pagto Cobranca: Aluguel
+						<CHECKNUM>0300500
+						<MEMO>Pagto Cobranca Aluguel
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220315000000[-03:EST]
+						<TRNAMT>-1000.00
+						<FITID>N2053D:15/03/22:-1000.0:0300600: Pagto Cobranca: Condominio
+						<CHECKNUM>0300600
+						<MEMO>Pagto Cobranca Condominio
+					</STMTTRN>
+					<STMTTRN>
+					    <TRNTYPE>DEBIT
+					    <DTPOSTED>20220319000000[-03:EST]
+					    <TRNAMT>-100.00
+					    <FITID>N2057B:19/03/22:-100.0:0300700: Visa Electron: Drogaria
+					    <CHECKNUM>0300700
+					    <MEMO>Visa Electron Drogaria
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20220325000000[-03:EST]
+                        <TRNAMT>-800.00
+                        <FITID>N2055B:25/03/22:-800.0:0300800: Visa Electron: Supermercado Carrefour
+                        <CHECKNUM>0300800
+                        <MEMO>Visa Electron Supermercado Carrefour
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20220331000000[-03:EST]
+                        <TRNAMT>80.00
+                        <FITID>N2055B:31/03/22:-80.0:0300900: Resg Automatico Investim
+                        <CHECKNUM>0300900
+                        <MEMO>Resg Automatico Investim
+                    </STMTTRN>
+					<!-- Final de Custos Fixos -->
+					<!-- Extrato do mês de Março
+                    Renda: 5000,00
+                    Despesas Fixas: 4220,00
+                    Despesas Variáveis: 900,00
+                    Despesas Totais: 5120,00
+                    Saldo: -120,00
+                    Saldo Anterior: 80,00
+                    Saldo Final: -40,00
+                    ---------------------------------------->
+                    <!-- ... Abril ... -->
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20220401000000[-03:EST]
+                        <TRNAMT>5000.00
+                        <FITID>N20208:01/04/22:5000.0:0400100: Salario
+                        <CHECKNUM>0400100
+                        <MEMO>Salario
+                    </STMTTRN>
+                    <!-- Custos Fixos -->
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220410000000[-03:EST]
+						<TRNAMT>-1500.00
+						<FITID>N202B8:10/04/22:-1500.0:0400200: Transfe Pix: Des: Escola
+						<CHECKNUM>0400200
+						<MEMO>Transfe Pix Des: Escola
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220410000000[-03:EST]
+						<TRNAMT>-120.00
+						<FITID>N204AC:10/04/22:-120.00:0400300: Conta Telefone: Vivo Fixo-nac Dig-999999
+						<CHECKNUM>0400300
+						<MEMO>Conta Telefone Vivo Fixo-nac Dig-999999
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220410000000[-03:EST]
+						<TRNAMT>-600.00
+						<FITID>N2051F:10/04/22:-600.0:0400400: Pagto Cobranca: Curso de Ingles Fisk
+						<CHECKNUM>0400400
+						<MEMO>Pagto Cobranca Curso de Ingles Fisk
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220415000000[-03:EST]
+						<TRNAMT>-1000.00
+						<FITID>N2053D:15/04/22:-1000.0:0400500: Pagto Cobranca: Aluguel
+						<CHECKNUM>0400500
+						<MEMO>Pagto Cobranca Aluguel
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220415000000[-03:EST]
+						<TRNAMT>-1000.00
+						<FITID>N2053D:15/04/22:-1000.0:0400600: Pagto Cobranca: Condominio
+						<CHECKNUM>0400600
+						<MEMO>Pagto Cobranca Condominio
+					</STMTTRN>
+					<!-- Final de Custos Fixos -->
+					<STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20220420000000[-03:EST]
+                        <TRNAMT>-100.00
+                        <FITID>N2057B:20/04/22:-100.0:0400700: Visa Electron: Restaurante Bom Sabor
+                        <CHECKNUM>0400700
+                        <MEMO>Visa Electron Restaurante Bom Sabor
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20220425000000[-03:EST]
+                        <TRNAMT>-640.00
+                        <FITID>N2055B:25/04/22:-640.0:0400800: Visa Electron: Supermercado Carrefour
+                        <CHECKNUM>0400800
+                        <MEMO>Visa Electron Supermercado Carrefour
+                    </STMTTRN>
+					<!--  Extrato do mês de Abril
+                    Renda: 5000,00
+                    Despesas Fixas: 4220,00
+                    Despesas Variáveis: 740,00
+                    Despesas Totais: 4960,00
+                    Saldo: 40,00
+                    Saldo Anterior: -40,00
+                    Saldo Final: 0,00
+                    ---------------------------------------->
+                    <!-- ... Maio ... -->
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20220501000000[-03:EST]
+                        <TRNAMT>5000.00
+                        <FITID>N20208:01/05/22:5000.0:0500100: Salario
+                        <CHECKNUM>0500100
+                        <MEMO>Salario
+                    </STMTTRN>
+                    <!-- Custos Fixos -->
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220510000000[-03:EST]
+						<TRNAMT>-1500.00
+						<FITID>N202B8:10/05/22:-1500.0:0500200: Transfe Pix: Des: Escola
+						<CHECKNUM>0500200
+						<MEMO>Transfe Pix Des: Escola
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220510000000[-03:EST]
+						<TRNAMT>-120.00
+						<FITID>N204AC:10/05/22:-120.00:0500300: Conta Telefone: Vivo Fixo-nac Dig-999999
+						<CHECKNUM>0500300
+						<MEMO>Conta Telefone Vivo Fixo-nac Dig-999999
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220510000000[-03:EST]
+						<TRNAMT>-600.00
+						<FITID>N2051F:10/05/22:-600.0:0500400: Pagto Cobranca: Curso de Ingles Fisk
+						<CHECKNUM>0500400
+						<MEMO>Pagto Cobranca Curso de Ingles Fisk
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220515000000[-03:EST]
+						<TRNAMT>-1000.00
+						<FITID>N2053D:15/05/22:-1000.0:0500500: Pagto Cobranca: Aluguel
+						<CHECKNUM>0500500
+						<MEMO>Pagto Cobranca Aluguel
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220515000000[-03:EST]
+						<TRNAMT>-1000.00
+						<FITID>N2053D:15/05/22:-1000.0:0500600: Pagto Cobranca: Condominio
+						<CHECKNUM>0500600
+						<MEMO>Pagto Cobranca Condominio
+					</STMTTRN>
+					<!-- Final de Custos Fixos -->
+					<STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20220520000000[-03:EST]
+                        <TRNAMT>-100.00
+                        <FITID>N2053D:20/05/22:-100.0:0500700: Pagto Cobranca: Drogaria
+                        <CHECKNUM>0500700
+                        <MEMO>Pagto Cobranca Drogaria
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20220520000000[-03:EST]
+                        <TRNAMT>-100.00
+                        <FITID>N2053D:20/05/22:-100.0:0500800: Pagto Cobranca: Supermercado
+                        <CHECKNUM>0500800
+                        <MEMO>Pagto Cobranca Supermercado
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20220525000000[-03:EST]
+                        <TRNAMT>-80.00
+                        <FITID>N2053D:25/05/22:-80.0:0500900: Pagto Cobranca: Lanchonete
+                        <CHECKNUM>0500900
+                        <MEMO>Pagto Cobranca Lanchonete
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20220527000000[-03:EST]
+                        <TRNAMT>-500.00
+                        <FITID>N2053D:27/05/22:-500.0:0501000: Pagto Cobranca: Hortifruti
+                        <CHECKNUM>0501000
+                        <MEMO>Pagto Cobranca Hortifruti
+                    </STMTTRN>
+					<!-- Extrato do mês de Maio
+                    Renda: 5000,00
+                    Despesas Fixas: 4220,00
+                    Despesas Variáveis: 780,00
+                    Despesas Totais: 5000,00
+                    Saldo: 0,00
+                    Saldo Anterior: 0,00
+                    Saldo Final: 0,00
+                    ---------------------------------------->
+                    <!-- ... Junho ... -->
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20220601000000[-03:EST]
+                        <TRNAMT>5000.00
+                        <FITID>N20208:01/06/22:5000.0:0600100: Salario
+                        <CHECKNUM>0600100
+                        <MEMO>Salario
+                    </STMTTRN>
+                    <!-- Custos Fixos -->
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220610000000[-03:EST]
+						<TRNAMT>-1500.00
+						<FITID>N202B8:10/06/22:-1500.0:0600200: Transfe Pix: Des: Escola
+						<CHECKNUM>0600200
+						<MEMO>Transfe Pix Des: Escola
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220610000000[-03:EST]
+						<TRNAMT>-120.00
+						<FITID>N204AC:10/06/22:-120.00:0600300: Conta Telefone: Vivo Fixo-nac Dig-999999
+						<CHECKNUM>0600300
+						<MEMO>Conta Telefone Vivo Fixo-nac Dig-999999
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220610000000[-03:EST]
+						<TRNAMT>-600.00
+						<FITID>N2051F:10/06/22:-600.0:0600400: Pagto Cobranca: Curso de Ingles Fisk
+						<CHECKNUM>0600400
+						<MEMO>Pagto Cobranca Curso de Ingles Fisk
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220615000000[-03:EST]
+						<TRNAMT>-1000.00
+						<FITID>N2053D:15/06/22:-1000.0:0600500: Pagto Cobranca: Aluguel
+						<CHECKNUM>0600500
+						<MEMO>Pagto Cobranca Aluguel
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220615000000[-03:EST]
+						<TRNAMT>-1000.00
+						<FITID>N2053D:15/06/22:-1000.0:0600600: Pagto Cobranca: Condominio
+						<CHECKNUM>0600600
+						<MEMO>Pagto Cobranca Condominio
+					</STMTTRN>
+					<!-- Final de Custos Fixos -->
+					<STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20220620000000[-03:EST]
+                        <TRNAMT>-780.00
+                        <FITID>N2053D:20/06/22:-780.0:0600700: Pagto Cobranca: Mercado Popular
+                        <CHECKNUM>0600700
+                        <MEMO>Pagto Cobranca Mercado Popular
+                    </STMTTRN>
+                    <!-- Extrato do mês de Junho
+                    Renda: 5000,00
+                    Despesas Fixas: 4220,00
+                    Despesas Variáveis: 780,00
+                    Despesas Totais: 5000,00
+                    Saldo: 0,00
+                    Saldo Anterior: 0,00
+                    Saldo Final: 0,00
+                    ---------------------------------------->
+                    <!-- ... Julho ... -->
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20220701000000[-03:EST]
+                        <TRNAMT>5000.00
+                        <FITID>N20208:01/07/22:5000.0:0700100: Salario
+                        <CHECKNUM>0700100
+                        <MEMO>Salario
+                    </STMTTRN>
+                    <!-- Custos Fixos -->
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220710000000[-03:EST]
+						<TRNAMT>-1500.00
+						<FITID>N202B8:10/07/22:-1500.0:0700200: Transfe Pix: Des: Escola
+						<CHECKNUM>0700200
+						<MEMO>Transfe Pix Des: Escola
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220710000000[-03:EST]
+						<TRNAMT>-120.00
+						<FITID>N204AC:10/07/22:-120.00:0700300: Conta Telefone: Vivo Fixo-nac Dig-999999
+						<CHECKNUM>0700300
+						<MEMO>Conta Telefone Vivo Fixo-nac Dig-999999
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220710000000[-03:EST]
+						<TRNAMT>-600.00
+						<FITID>N2051F:10/07/22:-600.0:0700400: Pagto Cobranca: Curso de Ingles Fisk
+						<CHECKNUM>0700400
+						<MEMO>Pagto Cobranca Curso de Ingles Fisk
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220715000000[-03:EST]
+						<TRNAMT>-1000.00
+						<FITID>N2053D:15/07/22:-1000.0:0700500: Pagto Cobranca: Aluguel
+						<CHECKNUM>0700500
+						<MEMO>Pagto Cobranca Aluguel
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220715000000[-03:EST]
+						<TRNAMT>-1000.00
+						<FITID>N2053D:15/07/22:-1000.0:0700600: Pagto Cobranca: Condominio
+						<CHECKNUM>0700600
+						<MEMO>Pagto Cobranca Condominio
+					</STMTTRN>
+					<!-- Final de Custos Fixos -->
+					<STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20220720000000[-03:EST]
+                        <TRNAMT>-780.00
+                        <FITID>N2053D:20/07/22:-780.0:0700700: Pagto Cobranca: Mercado Popular
+                        <CHECKNUM>0700700
+                        <MEMO>Pagto Cobranca Mercado Popular
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20220720000000[-03:EST]
+                        <TRNAMT>-100.00
+                        <FITID>N2053D:20/07/22:-100.0:0700800: Pagto Cobranca: Drogaria
+                        <CHECKNUM>0700800
+                        <MEMO>Pagto Cobranca Drogaria
+                    </STMTTRN>
+					<!-- Extrato do mês de Julho
+					Renda: 5000,00
+					Despesas Fixas: 4220,00
+					Despesas Variáveis: 880,00
+					Despesas Totais: 5100,00
+					Saldo: -100,00
+					Saldo Anterior: 0,00
+					Saldo Final: -100,00
+					---------------------------------------->
+                    <!-- ... Agosto ... -->
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20220801000000[-03:EST]
+                        <TRNAMT>5000.00
+                        <FITID>N20208:01/08/22:5000.0:0800100: Salario
+                        <CHECKNUM>0800100
+                        <MEMO>Salario
+                    </STMTTRN>
+                    <!-- Custos Fixos -->
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220810000000[-03:EST]
+						<TRNAMT>-1500.00
+						<FITID>N202B8:10/08/22:-1500.0:0800200: Transfe Pix: Des: Escola
+						<CHECKNUM>0800200
+						<MEMO>Transfe Pix Des: Escola
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220810000000[-03:EST]
+						<TRNAMT>-120.00
+						<FITID>N204AC:10/08/22:-120.00:0800300: Conta Telefone: Vivo Fixo-nac Dig-999999
+						<CHECKNUM>0800300
+						<MEMO>Conta Telefone Vivo Fixo-nac Dig-999999
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220810000000[-03:EST]
+						<TRNAMT>-600.00
+						<FITID>N2051F:10/08/22:-600.0:0800400: Pagto Cobranca: Curso de Ingles Fisk
+						<CHECKNUM>0800400
+						<MEMO>Pagto Cobranca Curso de Ingles Fisk
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220815000000[-03:EST]
+						<TRNAMT>-1000.00
+						<FITID>N2053D:15/08/22:-1000.0:0800500: Pagto Cobranca: Aluguel
+						<CHECKNUM>0800500
+						<MEMO>Pagto Cobranca Aluguel
+					</STMTTRN>
+					<STMTTRN>
+						<TRNTYPE>DEBIT
+						<DTPOSTED>20220815000000[-03:EST]
+						<TRNAMT>-1000.00
+						<FITID>N2053D:15/08/22:-1000.0:0800600: Pagto Cobranca: Condominio
+						<CHECKNUM>0800600
+						<MEMO>Pagto Cobranca Condominio
+					</STMTTRN>
+					<!-- Final de Custos Fixos -->
+					<STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20220820000000[-03:EST]
+                        <TRNAMT>-680.00
+                        <FITID>N2053D:20/08/22:-680.0:0800700: Pagto Cobranca: Mercado Popular
+                        <CHECKNUM>0800700
+                        <MEMO>Pagto Cobranca Mercado Popular
+                    </STMTTRN>
+                    <!-- Extrato do mês de Agosto
+                    Renda: 5000,00
+                    Despesas Fixas: 4220,00
+                    Despesas Variáveis: 680,00
+                    Despesas Totais: 4900,00
+                    Saldo: 100,00
+                    Saldo Anterior: -100,00
+                    Saldo Final: 0,00
+                    ---------------------------------------->
+                    <!-- ... Setembro ... -->
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20220901000000[-03:EST]
+                        <TRNAMT>5000.00
+                        <FITID>N20208:01/09/22:5000.0:0900100: Salario
+                        <CHECKNUM>0900100
+                        <MEMO>Salario
+                    </STMTTRN>
+                    <!-- Custos Fixos -->
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20220910000000[-03:EST]
+                        <TRNAMT>-1500.00
+                        <FITID>N202B8:10/09/22:-1500.0:0900200: Transfe Pix: Des: Escola
+                        <CHECKNUM>0900200
+                        <MEMO>Transfe Pix Des: Escola
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20220910000000[-03:EST]
+                        <TRNAMT>-120.00
+                        <FITID>N204AC:10/09/22:-120.00:0900300: Conta Telefone: Vivo Fixo-nac Dig-999999
+                        <CHECKNUM>0900300
+                        <MEMO>Conta Telefone Vivo Fixo-nac Dig-999999
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20220910000000[-03:EST]
+                        <TRNAMT>-600.00
+                        <FITID>N2051F:10/09/22:-600.0:0900400: Pagto Cobranca: Curso de Ingles Fisk
+                        <CHECKNUM>0900400
+                        <MEMO>Pagto Cobranca Curso de Ingles Fisk
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20220915000000[-03:EST]
+                        <TRNAMT>-1000.00
+                        <FITID>N2053D:15/09/22:-1000.0:0900500: Pagto Cobranca: Aluguel
+                        <CHECKNUM>0900500
+                        <MEMO>Pagto Cobranca Aluguel
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20220915000000[-03:EST]
+                        <TRNAMT>-1000.00
+                        <FITID>N2053D:15/09/22:-1000.0:0900600: Pagto Cobranca: Condominio
+                        <CHECKNUM>0900600
+                        <MEMO>Pagto Cobranca Condominio
+                    </STMTTRN>
+                    <!-- Final de Custos Fixos -->
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20220920000000[-03:EST]
+                        <TRNAMT>-680.00
+                        <FITID>N2053D:20/09/22:-680.0:0900700: Pagto Cobranca: Mercado Popular
+                        <CHECKNUM>0900700
+                        <MEMO>Pagto Cobranca Mercado Popular
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20220930000000[-03:EST]
+                        <TRNAMT>-100.00
+                        <FITID>N2053D:30/09/22:-100.0:0900800: Invest Facil
+                        <CHECKNUM>0900800
+                        <MEMO>Invest Facil
+                    </STMTTRN>
+                    <!-- Extrato do mês de Setembro
+                    Renda: 5000,00
+                    Despesas Fixas: 4220,00
+                    Despesas Variáveis: 680,00
+                    Despesas Totais: 4900,00
+                    Saldo: 100,00
+                    Saldo Anterior: 0,00
+                    Saldo Final: 100,00
+                    <!-- ... Outubro ... -->
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20221001000000[-03:EST]
+                        <TRNAMT>5000.00
+                        <FITID>N20208:01/10/22:5000.0:1000100: Salario
+                        <CHECKNUM>1000100
+                        <MEMO>Salario
+                    </STMTTRN>
+                    <!-- Custos Fixos -->
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20221010000000[-03:EST]
+                        <TRNAMT>-1500.00
+                        <FITID>N202B8:10/10/22:-1500.0:1000200: Transfe Pix: Des: Escola
+                        <CHECKNUM>1000200
+                        <MEMO>Transfe Pix Des: Escola
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20221010000000[-03:EST]
+                        <TRNAMT>-120.00
+                        <FITID>N204AC:10/10/22:-120.00:1000300: Conta Telefone: Vivo Fixo-nac Dig-999999
+                        <CHECKNUM>1000300
+                        <MEMO>Conta Telefone Vivo Fixo-nac Dig-999999
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20221010000000[-03:EST]
+                        <TRNAMT>-600.00
+                        <FITID>N2051F:10/10/22:-600.0:1000400: Pagto Cobranca: Curso de Ingles Fisk
+                        <CHECKNUM>1000400
+                        <MEMO>Pagto Cobranca Curso de Ingles Fisk
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20221015000000[-03:EST]
+                        <TRNAMT>-1000.00
+                        <FITID>N2053D:15/10/22:-1000.0:1000500: Pagto Cobranca: Aluguel
+                        <CHECKNUM>1000500
+                        <MEMO>Pagto Cobranca Aluguel
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20221015000000[-03:EST]
+                        <TRNAMT>-1000.00
+                        <FITID>N2053D:15/10/22:-1000.0:1000600: Pagto Cobranca: Condominio
+                        <CHECKNUM>1000600
+                        <MEMO>Pagto Cobranca Condominio
+                    </STMTTRN>
+                    <!-- Final de Custos Fixos -->
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20221025000000[-03:EST]
+                        <TRNAMT>-780.00
+                        <FITID>N2056A:25/10/22:-780.0:1000700: Pagto Cobranca: Supermercado Pao de Acucar
+                        <CHECKNUM>1000700
+                        <MEMO>Pagto Cobranca Supermercado Pao de Acucar
+                    </STMTTRN>
+                    <!-- Extrato do mês de Outubro
+                    Renda: 5000.00
+                    Despesas Fixas: 4220,00
+                    Despesas Variáveis: 780,00
+                    Despesas Totais: 5000,00
+                    Saldo: 0,00
+                    Saldo Anterior: 100,00
+                    Saldo Final: 100,00
+                    ---------------------------------------->
+                    <!-- ... Novembro ... -->
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20221101000000[-03:EST]
+                        <TRNAMT>5000.00
+                        <FITID>N20208:01/11/22:5000.0:1100100: Salario
+                        <CHECKNUM>1100100
+                        <MEMO>Salario
+                    </STMTTRN>
+                    <!-- Custos Fixos -->
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20221110000000[-03:EST]
+                        <TRNAMT>-1500.00
+                        <FITID>N202B8:10/11/22:-1500.0:1100200: Transfe Pix: Des: Escola
+                        <CHECKNUM>1100200
+                        <MEMO>Transfe Pix Des: Escola
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20221110000000[-03:EST]
+                        <TRNAMT>-120.00
+                        <FITID>N204AC:10/11/22:-120.00:1100300: Conta Telefone: Vivo Fixo-nac Dig-999999
+                        <CHECKNUM>1100300
+                        <MEMO>Conta Telefone Vivo Fixo-nac Dig-999999
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20221110000000[-03:EST]
+                        <TRNAMT>-600.00
+                        <FITID>N2051F:10/11/22:-600.0:1100400: Pagto Cobranca: Curso de Ingles Fisk
+                        <CHECKNUM>1100400
+                        <MEMO>Pagto Cobranca Curso de Ingles Fisk
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20221115000000[-03:EST]
+                        <TRNAMT>-1000.00
+                        <FITID>N2053D:15/11/22:-1000.0:1100500: Pagto Cobranca: Aluguel
+                        <CHECKNUM>1100500
+                        <MEMO>Pagto Cobranca Aluguel
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20221115000000[-03:EST]
+                        <TRNAMT>-1000.00
+                        <FITID>N2053D:15/11/22:-1000.0:1100600: Pagto Cobranca: Condominio
+                        <CHECKNUM>1100600
+                        <MEMO>Pagto Cobranca Condominio
+                    </STMTTRN>
+                    <!-- Final de Custos Fixos -->
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20221125000000[-03:EST]
+                        <TRNAMT>-680.00
+                        <FITID>N2056A:25/11/22:-680.0:1100700: Pagto Cobranca: Supermercado Pao de Acucar
+                        <CHECKNUM>1100700
+                        <MEMO>Pagto Cobranca Supermercado Pao de Acucar
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20221130000000[-03:EST]
+                        <TRNAMT>-100.00
+                        <FITID>N2056A:30/11/22:-100.0:1100700: Invest Facil
+                        <CHECKNUM>1100700
+                        <MEMO>Invest Facil
+                    </STMTTRN>
+                    <!-- Extrato do mês de Novembro
+                    Renda: 5000.00
+                    Despesas Fixas: 4220,00
+                    Despesas Variáveis: 680,00
+                    Despesas Totais: 4900,00
+                    Saldo: 100,00
+                    Saldo Anterior: 100,00
+                    Saldo Final: 200,00
+                    ---------------------------------------->
+                    <!-- ... Dezembro ... -->
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20221201000000[-03:EST]
+                        <TRNAMT>5000.00
+                        <FITID>N20208:01/12/22:5000.0:1200100: Salario
+                        <CHECKNUM>1200100
+                        <MEMO>Salario
+                    </STMTTRN>
+                    <!-- Custos Fixos -->
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20221210000000[-03:EST]
+                        <TRNAMT>-1500.00
+                        <FITID>N202B8:10/12/22:-1500.0:1200200: Transfe Pix: Des: Escola
+                        <CHECKNUM>1200200
+                        <MEMO>Transfe Pix Des: Escola
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20221210000000[-03:EST]
+                        <TRNAMT>-120.00
+                        <FITID>N204AC:10/12/22:-120.00:1200300: Conta Telefone: Vivo Fixo-nac Dig-999999
+                        <CHECKNUM>1200300
+                        <MEMO>Conta Telefone Vivo Fixo-nac Dig-999999
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20221210000000[-03:EST]
+                        <TRNAMT>-600.00
+                        <FITID>N2051F:10/12/22:-600.0:1200400: Pagto Cobranca: Curso de Ingles Fisk
+                        <CHECKNUM>1200400
+                        <MEMO>Pagto Cobranca Curso de Ingles Fisk
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20221215000000[-03:EST]
+                        <TRNAMT>-1000.00
+                        <FITID>N2053D:15/12/22:-1000.0:1200500: Pagto Cobranca: Aluguel
+                        <CHECKNUM>1200500
+                        <MEMO>Pagto Cobranca Aluguel
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20221215000000[-03:EST]
+                        <TRNAMT>-1000.00
+                        <FITID>N2053D:15/12/22:-1000.0:1200600: Pagto Cobranca: Condominio
+                        <CHECKNUM>1200600
+                        <MEMO>Pagto Cobranca Condominio
+                    </STMTTRN>
+                    <!-- Final de Custos Fixos -->
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20221225000000[-03:EST]
+                        <TRNAMT>-520.00
+                        <FITID>N2056A:25/12/22:-520.0:1200700: Pagto Cobranca: Cartao de Credito
+                        <CHECKNUM>1200700
+                        <MEMO>Pagto Cobranca Cartao de Credito
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20221225000000[-03:EST]
+                        <TRNAMT>-280.00
+                        <FITID>N2056A:25/12/22:-280.0:1200800: Visa Electron: Compras no Shopping
+                        <CHECKNUM>1200800
+                        <MEMO>Visa Electron Compras no Shopping
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20221225000000[-03:EST]
+                        <TRNAMT>-180.00
+                        <FITID>N2056A:25/12/22:-180.0:1200900: Visa Electron: Hortifruti
+                        <CHECKNUM>1200900
+                        <MEMO>Visa Electron Hortifruti
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20221231000000[-03:EST]
+                        <TRNAMT>200.00
+                        <FITID>N2056A:31/12/22:200.0:1201000: Resg Automatico Investim
+                        <CHECKNUM>1201000
+                        <MEMO>Resg Automatico Investim
+                    </STMTTRN>
+                    <!-- Extrato do mês de Dezembro
+                    Renda: 5000,00
+                    Despesas Fixas: 4220,00
+                    Despesas Variáveis: 980,00
+                    Despesas Totais: 5200,00
+                    Saldo: -200,00
+                    Saldo Anterior: 200,00
+                    Saldo Final: 0,00
+                    ---------------------------------------->
+				</BANKTRANLIST>
+				<LEDGERBAL>
+					<BALAMT>0.00
+					<DTASOF>20230101000000[-03:EST]
+				</LEDGERBAL>
+			</STMTRS>
+		</STMTTRNRS>
+	</BANKMSGSRSV1>
+</OFX>
