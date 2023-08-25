@@ -192,20 +192,20 @@ def dashboard_data_view(request):
 
         lista_transacoes_futuras_do_mes = transacoes_futuras_do_mes_df.to_dict(orient='records')
 
-    if lista_adicao_transacoes:
-        lista_transacoes_do_mes = lista_adicao_transacoes + lista_transacoes_do_mes
-
-    if lista_transacoes_futuras_do_mes:
-        lista_transacoes_do_mes = lista_transacoes_do_mes + lista_transacoes_futuras_do_mes
-
         planejamento = Planejamento.gerar_lista_planejamento_anual(datetime.today().date())
 
-        for _mes in range(hoje_datetime.month + 1, 13):
+        for _mes in range(hoje_datetime.month, 13):
             despesas_planejadas_mes = planejamento[mes_em_portugues(_mes)]['total'] or Decimal('0.00')
             grafico_despesas_futuras[mes_em_portugues(_mes)] = {
                 'comprasParceladas': f"{Decimal(transacoes_futuras_agrupado_mes.get(_mes, Decimal('0.00')))}",
                 'despesasPlanejadas': f"{despesas_planejadas_mes}"
             }
+
+    if lista_adicao_transacoes:
+        lista_transacoes_do_mes = lista_adicao_transacoes + lista_transacoes_do_mes
+
+    if lista_transacoes_futuras_do_mes:
+        lista_transacoes_do_mes = lista_transacoes_do_mes + lista_transacoes_futuras_do_mes
 
     # ######################################### #
     #              GRÁFICOS ANUAIS              #

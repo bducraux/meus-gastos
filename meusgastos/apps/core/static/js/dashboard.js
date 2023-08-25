@@ -4,11 +4,10 @@ document.addEventListener("DOMContentLoaded", function() {
         categoriesData, subcategoriesData, mediaGastosCategoria;
     // Definir cores para os gráficos
     const paletaCores = [
-        '#1F77B4', '#FF7F0E', '#2CA02C', '#D62728', '#9467BD',
-        '#8C564B', '#E377C2', '#2C3864', '#BCBD22', '#17BECF',
-        '#F6611E', '#008000', '#8B008B', '#FF00FF', '#FFD700',
-        '#800000', '#00FFFF', '#00FF00', '#4B0082', '#FF4500',
-        '#a37c27', '#0c0e70', '#662E54', '#3c8dbc', '#00c0ef'
+        '#1F77B4', '#FF7F0E', '#F8FFB6', '#D62728', '#9467BD',
+        '#8C564B', '#4b1648', '#2C3864', '#BCBD22', '#17BECF',
+        '#57404d', '#008000', '#0c0e70', '#A3602A', '#FFD700',
+        '#800000', 'rgba(141,116,116,0.68)', '#00FF00', '#4B0082', '#FF4500',
     ];
 
     // Cores personalizadas para as categorias
@@ -141,21 +140,29 @@ document.addEventListener("DOMContentLoaded", function() {
             const label = Object.keys(chartData)[index];
             switch (label) {
                 case 'Não categorizado':
-                    return '#999999';
+                    return '#000000';
                 case 'Beleza':
-                    return '#C70FF7';
-                case 'Casa':
+                    return '#ff79f3';
+                case 'Alimentação':
                     return '#F7B50F';
                 case 'Aluguel':
                     return '#F70F0F';
                 case 'Judy':
                     return '#F71B70';
-                case 'Lazer':
+                case 'Saúde':
                     return '#0FF7F7';
                 case 'Cartão de Crédito':
                     return '#F26E61';
                 case 'Manu':
                     return '#69239E';
+                case 'Moradia':
+                    return '#043c05';
+                case 'Supermercado':
+                    return '#08810a';
+                case 'Carro':
+                    return '#F0F0F0';
+                case 'Mães':
+                    return '#debeff';
                 default:
                     return color;
             }
