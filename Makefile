@@ -3,3 +3,6 @@ create-categoria-fixture:
 
 load-categoria-fixture:
 	python manage.py loaddata categorias.json
+
+create-trasacoes-backup:
+	python manage.py dumpdata --indent 4 transacoes.Transacao > meusgastos/apps/transacoes/fixtures/transacoes.json
